@@ -70,7 +70,7 @@ undoubtedly important features that have allowed evolution to produce impressive
 However, some of these features are not trivially included into standard EAs, which are mostly coded as sequential and synchronous algorithms \cite{}.
 For instance, a large body of work exists in EA parallelization, using multiple CPU cores \cite{}, PCs \cite{} and GPUs \cite{}.
 However, distributed EAs have started to become common only recently \cite{}.
-
+%Faltan la bibliografía
 In particular, recent trends in information technology have opened new lines of future development for EC research.
 Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
 These resources are easily accessible through popular internet technologies, such as cloud computing, 
@@ -173,8 +173,7 @@ a discrepancy or a time-out from a client, a new job replica was created and
 sent to another client. The main drawback of this approach was that the 
 master-worker algorithm used was synchronous, so the process had to wait 
 for all jobs to continue to the next generation. Web browsers were used by 
-Merelo et al. \cite{JSON} using Javascript to implement the algorithm, this has the 
-advantage of not requiring the installation of additional software. 
+Merelo et al. \cite{JSON} using Javascript to implement the algorithm, this has the advantage of not requiring the installation of additional software. 
 In this work the server receives an Ajax request with the best individual 
 obtained from the local evolution in clients, and then responds with 
 additional parameters and the best individual in the population so far. 
@@ -207,7 +206,7 @@ starvation or optionally when a time-out occurs new phantom individuals are
 re-inserted to the population and available again. This can be done because a 
 copy of each sample is stored in a priority queue used by EvoSpace to re-insert 
 the sample to the central population; similar to games where characters are 
-respawned after a certain time. In the experiments conducted in this work 
+Respawned after a certain time. In the experiments conducted in this work 
 re-insertion occurs when the population size is below a certain threshold. 
 Figure~\ref{fig:evo} illustrates the main components of EvoSpace.
 
