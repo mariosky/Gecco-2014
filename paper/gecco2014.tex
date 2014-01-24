@@ -57,8 +57,7 @@
 %
 \section{Introduction}
 \label{sec:intro}
-In part, thanks to evolutionary computation (EC) research, scientists and engineers from many fields now understand
-the remarkable power of the natural search process described by the biological theory of Neo-Darwinian evolution \cite{}.
+In part, thanks to evolutionary computation (EC) research, scientists and engineers from many fields now understand the remarkable power of the natural search process described by the biological theory of Neo-Darwinian evolution \cite{}.
 Inspired in biological evolution, EC researchers have developed a variety of optimization algorithms that consistently outperform traditional
 methods in a variety of areas and problem domains \cite{}.
 While EAs are inspired in evolution, they mostly follow only an abstract model of the natural process.
@@ -70,11 +69,11 @@ undoubtedly important features that have allowed evolution to produce impressive
 However, some of these features are not trivially included into standard EAs, which are mostly coded as sequential and synchronous algorithms \cite{}.
 For instance, a large body of work exists in EA parallelization, using multiple CPU cores \cite{}, PCs \cite{} and GPUs \cite{}.
 However, distributed EAs have started to become common only recently \cite{}.
-%Faltan la bibliografía
 In particular, recent trends in information technology have opened new lines of future development for EC research.
 Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
 These resources are easily accessible through popular internet technologies, such as cloud computing, 
 peer-to-peer (P2P), and http-based environments.
+% mejor web environments? -Mario
 Moreover, these technologies are intended for the development of parallel, distributed and asynchronous systems,
 such that an EA developed on top of them could easily reap the benefits of these features.
 As stated before, several EAs have been proposed that distribute  the evolutionary process among heterogeneous devices, not only among controlled
@@ -94,6 +93,9 @@ In the case of a DPA-EAs, this issue is magnified since the underlying system ar
 
 This work studies a recently proposed DPA system, called EvoSpace, a framework to develop DPA-EA using 
 heterogeneous and unreliable resources.
+%% Podriamos enfocar mas el tema a Pool-based DPA? Creo que DPA es todavia mas general -Mario
+% Lo digo por que en otros trabajos hemos partido de ahi y mencionanamos otros
+% trabajos como A-teams, Sofea, etc.. Ahora no se si los findings de este trabajo nos den para generalizar a otros DPA. -Mario
 EvoSpace is based on Linda's tuple
 space \cite{Evospace} coordination model, where each node asynchronously
 pulls its work from a central shared memory. The core elements of EvoSpace are a central 
@@ -108,8 +110,8 @@ The idea behind RPSS is that in a distributed EA, algorithm parametrization may 
 with research showing that when the number of distributed process is large enough, algorithm parameters can be set randomly and still achieve
 good overall results.
 However, work on RPSS has only focused on the well-known Island Model for EAs, a distributed but synchronous system.
+% En el paper le llaman Distributed Island Model, para diferenciarla por ejemplo de Parallel Island Model en una maquina multiprocesador -Mario
 On the other hand, the goal of this work is to evaluate RPSS on a complete DPA-EA implemented through EvoSpace.
-
 
 
 %In this paper the effect of node unavailability in algorithms using the 
@@ -182,6 +184,7 @@ EC solutions are based on a  global queue of tasks and a Map-Reduce
 implementation which normally handles failures by the re-execution of 
 tasks \cite{fazenda2012,di2013towards,FlexGP}. 
 
+%% Los de abajo son comentarios viejos -Mario
 %% Lo que hice arriba es ir comparando la técnica de failover de cada
 %% propuesta me faltan las de abajo 
 
@@ -229,6 +232,9 @@ service using Cherrypy http library. The EvoSpace modules are available with
 a Simplified BSD License from 
 % https://github.com/mariosky/EvoSpace. 
 \url{anonymous URL}.
+
+
+% Un comentario que hicieron en este paper es que perdemos mucho tiempo en hablar de la implementacion en estas herramientas, estoy de acuerdo que para el objetivo del articulo no aporta nada. - Mario
 
 \subsection{Evospace as a Heroku Application}
 
