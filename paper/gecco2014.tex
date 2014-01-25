@@ -18,7 +18,7 @@
 
 
 \begin{document}
-\title{ Unreliable Heterogeneous Workers in a pool-based evolutionary algorithm}
+\title{ Unreliable Heterogeneous Workers in a Pool-based Evolutionary Algorithm}
 \subtitle{TRACK: }
 
 \conferenceinfo{GECCO'14,} {July 12-16, 2014, Vancouver, BC, Canada.}
@@ -47,6 +47,7 @@
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
+%Abstract is important and should go first. 
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -57,10 +58,14 @@
 %
 \section{Introduction}
 \label{sec:intro}
-In part, thanks to evolutionary computation (EC) research, scientists and engineers from many fields now understand the remarkable power of the natural search process described by the biological theory of Neo-Darwinian evolution \cite{}.
+Thanks in part  to evolutionary computation (EC) research, scientists
+and engineers from many fields now understand the remarkable power of
+the natural search process described by the biological theory of
+Neo-Darwinian evolution \cite{}. 
 Inspired in biological evolution, EC researchers have developed a variety of optimization algorithms that consistently outperform traditional
-methods in a variety of areas and problem domains \cite{}.
-While EAs are inspired in evolution, they mostly follow only an abstract model of the natural process.
+methods in a variety of areas and problem domains \cite{}. %Empty
+                                %statement, maybe delete. 
+While EAs are inspired by evolution, they mostly follow an abstract model of the natural process.
 For instance, one aspect that is omitted from most EAs is an open-ended search process,
 in practice EAs are used to solve problems with well defined objectives, while natural evolution is an adaptive process without an a priori goal or purpose.
 Such open-ended EAs have been developed, mostly for artistic design \cite{}, interactive evolution \cite{} and artificial life systems \cite{}.
@@ -184,6 +189,8 @@ EC solutions are based on a  global queue of tasks and a Map-Reduce
 implementation which normally handles failures by the re-execution of 
 tasks \cite{fazenda2012,di2013towards,FlexGP}. 
 
+%This should be expanded a bit
+
 %% Los de abajo son comentarios viejos -Mario
 %% Lo que hice arriba es ir comparando la técnica de failover de cada
 %% propuesta me faltan las de abajo 
@@ -213,12 +220,12 @@ Respawned after a certain time. In the experiments conducted in this work
 re-insertion occurs when the population size is below a certain threshold. 
 Figure~\ref{fig:evo} illustrates the main components of EvoSpace.
 
-\begin{figure}[t]
+\begin{figure*}[t]
     \centering
-        \includegraphics[width=4.5in]{eps/evospaceExample.eps}
+        \includegraphics[width=5in]{eps/evospaceExample.eps}
     \caption{Main components and dataflow within EvoSpace.}
     \label{fig:evo}
-\end{figure}
+\end{figure*}
 
 
 \subsection{Implementation}
@@ -536,6 +543,7 @@ Hidden for double-blind review.
 
 %
 % ---- Bibliography ----
+% There are problems with the bibliography codification.
 \bibliographystyle{abbrv}
 \begin{footnotesize}
 \bibliography{biblio}
