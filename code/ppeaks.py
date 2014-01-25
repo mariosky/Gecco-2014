@@ -87,9 +87,13 @@ def evolve(sample_num, config):
 
     total_evals = len(pop)
     best_first   = None
+    best_individual = None
     # Begin the evolution
 
     for g in range(config["WORKER_GENERATIONS"]):
+
+        if best_individual:
+            pop[0] = best_individual
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
         # Clone the selected individuals
@@ -133,9 +137,11 @@ def evolve(sample_num, config):
         if not best_first:
             best_first = best
 
+        best_individual = tools.selBest(pop, 1)[0]
         if best >= 1.0:
-            print tools.selBest(pop, 1)[0]
+            print best_individual
             break
+
 
             #print  "  Min %s" % min(fits) + "  Max %s" % max(fits)+ "  Avg %s" % mean + "  Std %s" % std
 

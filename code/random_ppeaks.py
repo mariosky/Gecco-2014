@@ -81,11 +81,14 @@ def evolve(sample_num, config):
 
 
     total_evals = len(pop)
+    best_individual = None
     best_first   = None
     # Begin the evolution
 
     for g in range(config["WORKER_GENERATIONS"]):
         # Select the next generation individuals
+        if best_individual:
+            pop[0] = best_individual
         offspring = toolbox.select(pop, len(pop))
         # Clone the selected individuals
         offspring = map(toolbox.clone, offspring)
@@ -125,13 +128,14 @@ def evolve(sample_num, config):
         #std = abs(sum2 / length - mean**2)**0.5
 
         best = max(fits)
+
         if not best_first:
             best_first = best
 
+        best_individual = tools.selBest(pop, 1)[0]
         if best >= 1.0:
-            print tools.selBest(pop, 1)[0]
+            print best_individual
             break
-
             #print  "  Min %s" % min(fits) + "  Max %s" % max(fits)+ "  Avg %s" % mean + "  Std %s" % std
 
     #print "-- End of (successful) evolution --"
@@ -153,7 +157,8 @@ def evolve(sample_num, config):
 
     return best >= 1.0, \
            [config["CHROMOSOME_LENGTH"],best, sample_num, round(time.time() - start, 2),
-            round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned]
+            round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned,
+            MUTPB, CXPB, SAMPLE_SIZE]
 
 
 def work(params):
