@@ -55,52 +55,52 @@
 
 \terms{Performance,Theory,Experimentation}
 \keywords{}
-%
+
 \section{Introduction}
 \label{sec:intro}
-Thanks in part  to evolutionary computation (EC) research, scientists
-and engineers from many fields now understand the remarkable power of
-the natural search process described by the biological theory of
-Neo-Darwinian evolution \cite{}. 
-Inspired in biological evolution, EC researchers have developed a variety of optimization algorithms that consistently outperform traditional
-methods in a variety of areas and problem domains \cite{}. %Empty
-                                %statement, maybe delete. 
+Thanks in part  to evolutionary computation (EC) research, scientists and engineers from many fields now understand the remarkable power of
+the natural search process described by the biological theory of Neo-Darwinian evolution \cite{}. 
+Inspired in biological evolution, EC researchers have developed a variety of search and optimization algorithms \cite{}.
+%Empty statement, maybe delete.
+
 While EAs are inspired by evolution, they mostly follow an abstract model of the natural process.
 For instance, one aspect that is omitted from most EAs is an open-ended search process,
 in practice EAs are used to solve problems with well defined objectives, while natural evolution is an adaptive process without an a priori goal or purpose.
 Such open-ended EAs have been developed, mostly for artistic design \cite{}, interactive evolution \cite{} and artificial life systems \cite{}.
 Other interesting features of biological evolution, is that it is an intrinsically parallel, distributed and asynchronous process,
 undoubtedly important features that have allowed evolution to produce impressive results throughout nature.
-However, some of these features are not trivially included into standard EAs, which are mostly coded as sequential and synchronous algorithms \cite{}.
+However, some of these features are not trivially included into standard EAs,
+which are mostly coded as sequential and synchronous algorithms \cite{}.
+
 For instance, a large body of work exists in EA parallelization, using multiple CPU cores \cite{}, PCs \cite{} and GPUs \cite{}.
 However, distributed EAs have started to become common only recently \cite{}.
 In particular, recent trends in information technology have opened new lines of future development for EC research.
 Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
 These resources are easily accessible through popular internet technologies, such as cloud computing, 
-peer-to-peer (P2P), and http-based environments.
-% mejor web environments? -Mario
+peer-to-peer (P2P), and web environments.
+
 Moreover, these technologies are intended for the development of parallel, distributed and asynchronous systems,
 such that an EA developed on top of them could easily reap the benefits of these features.
 As stated before, several EAs have been proposed that distribute  the evolutionary process among heterogeneous devices, not only among controlled
-nodes in a in-house cluster or grid but also in those out side the data center, in users' web browsers and smart phones or external cloud based virtual machines.
-This reach out approach allows researchers the use of low cost computational 
+nodes within an in-house cluster or grid, but also to others outside the data center, in users' web browsers, smart phones or external cloud based virtual machines.
+This reach out approach allows researchers to use low cost computational 
 power that would not be available otherwise, but on the other hand, have the 
 challenge to manage heterogeneous unreliable computing resources. 
-In this paper we will use the acronym DPA-EA to describe EAs that are deployed in a distributed-parallel-asynchronous infrastructure.
+In particular, we are interested in systems that follow a pool-based approach, where the search process is conducted
+by a collection, of possibly heterogeneous, collaborating processes using a shared repository or population pool.
+We will refer to succh algorithms as Pool-based EAs or PEAs, and highlight the fact that such systems are
+intrinsically parallel, distributed and asynchronous.
 
-Despite promising results, DPA-EAs present several notable challenges. From a technological perspective, for example, lost 
+Despite promising results, PEAs present several notable challenges. From a technological perspective, for example, lost 
 connections, low bandwidth, abandoned work, security and privacy are all important issues that must be addressed. 
-However, here we focus on a common issue with most EAs, that is only amplified in a DPA-EA, a problem that can be referred to as parametrization.
+However, here we focus on a common issue with most EAs, that is only amplified in a PEA, a problem that can be referred to as parametrization.
 In general, among machine learning methodologies, EAs are highly criticized by the large number of parameters they posses,
 that for real world problems need to be tuned empirically or require additional heuristic processes to be included into the search to
 adjust the parameters automatically \cite{}.
-In the case of a DPA-EAs, this issue is magnified since the underlying system architecture adds several degrees of freedom to the search process.
+In the case of a PEAs, this issue is magnified since the underlying system architecture adds several degrees of freedom to the search process.
 
-This work studies a recently proposed DPA system, called EvoSpace, a framework to develop DPA-EA using 
-heterogeneous and unreliable resources.
-%% Podriamos enfocar mas el tema a Pool-based DPA? Creo que DPA es todavia mas general -Mario
-% Lo digo por que en otros trabajos hemos partido de ahi y mencionanamos otros
-% trabajos como A-teams, Sofea, etc.. Ahora no se si los findings de este trabajo nos den para generalizar a otros DPA. -Mario
+This work studies a recently proposed pool-based system called EvoSpace, a framework to develop PEAs using 
+a heterogeneous collection of possibly unreliable resources.
 EvoSpace is based on Linda's tuple
 space \cite{Evospace} coordination model, where each node asynchronously
 pulls its work from a central shared memory. The core elements of EvoSpace are a central 
@@ -116,37 +116,12 @@ with research showing that when the number of distributed process is large enoug
 good overall results.
 However, work on RPSS has only focused on the well-known Island Model for EAs, a distributed but synchronous system.
 % En el paper le llaman Distributed Island Model, para diferenciarla por ejemplo de Parallel Island Model en una maquina multiprocesador -Mario
-On the other hand, the goal of this work is to evaluate RPSS on a complete DPA-EA implemented through EvoSpace.
+% Pero, creo que lo distribuido no cambia el modelo, solo la implementacion, en el otro articulo si se refieren a el como Island Model ... tal vez si le ponemos (distibuted) Island Model ?
+On the other hand, the goal of this work is to evaluate RPSS on a complete PEA implemented through EvoSpace.
 
 
 %In this paper the effect of node unavailability in algorithms using the 
-%EvoSpace population storage is assessed. EvoSpace [{\em references hidden for blind review}] is
-%a framework to develop evolutionary algorithms (EA) using 
-%heterogeneous and unreliable resources. EvoSpace is based on Linda's tuple
-%space \cite{Evospace} coordination model, where each node asynchronously
-%pulls its work from a central shared memory. The core elements of EvoSpace are a central 
-%repository for the evolving population and remote clients here called EvoWorkers
-%which pull random samples of the population to perform on them the basic evolutionary
-%processes (selection, variation and survival), once the work is done, the
-%modified sample is pushed back to the central population.
-%This model contrasts with  the use of a global queue of tasks and
-%implementations of map-reduce algorithms, recently favored in other proposals 
-%\cite{fazenda2012,di2013towards,FlexGP}.
-%Following the tuple space model, when individuals are pulled from the EvoSpace
-%container these are removed from it, so that no other EvoWorker could work on them at same time.
-%This design decision has several known benefits relevant to concurrency control 
-%in distributed systems, and also is an effective way of distributing the
-%workload. Leaving a copy of the individual in the population server free to
-%be pulled by other EvoWorkers will result in redundant work and this could be
-%costly if the task at hand is time consuming. EvoWorkers are expected to be 
-%unreliable, as they can loose a connection or are simply shut down or removed 
-%from the client. When an EvoWorker is lost, so are the individuals pulled from
-%the repository. Depending on the type of algorithm been executed, the lost of
-%these samples could have a high cost. To address the problem of unreliable 
-%EvoWorkers, EvoSpace uses a simple re-insertion algorithm that also 
-%prevents the starvation of the population pool. Other pool based algorithms
-%normally use a random insertion technique, but we argue this could negatively 
-%impact the outcome of the algorithm in some cases.  %Aquí aparece un
+%EvoSpace population storage is assessed.   %Aquí aparece un
 %                                %espacio muy grande en el PDF... - JJ
 %
 %This work evaluates the effect 
@@ -169,25 +144,27 @@ The remainder of the paper proceeds as follows. Section \ref{sec:work}
 
 \section{Related Work}
 \label{sec:work}
-Using available Internet resources for EC has been the focus of recent research
-in the field. The use of volunteer computing using BOINC open source software 
-is used by Smaoui et al.  \cite{FekiNG09} in this case BOINC uses redundancy
+Given the computational cost of many EAs, researchers have turned towards internet and cloud based software systems.
+For instance, Fern\'andez et al. \cite{}% articulo Paco, Gustavo y Leo publucado en Natural Computing}
+use the well-known Berkeley Open Infrastructure for Network Computing (BOINC) to distribute EA runs across a
+heterogeneous network of volunteer computers using virtual machines.
+
+However, such a system, as well as others distributed or parallel systems, does not follow the PEA approach studied in the current paper.
+In general, a pool-based system employs a central repository (real or virtual) where the evolving population is stored.
+Distributed clients interact with the pool, performing some or all of the basic EA processes (selection, genetic operators, survival). 
+For example, Smaoui et al. \cite{FekiNG09} uses BOINC redundancy
 to deal with the volatility of nodes and unreliability of their results. 
 In this work each BOINC work unit consisted of a fitness evaluation task and
 multiple replicas were produced and sent to different clients, later when 
-outputs were received a validation step ensured all outputs match. In case of
-a discrepancy or a time-out from a client, a new job replica was created and
-sent to another client. The main drawback of this approach was that the 
-master-worker algorithm used was synchronous, so the process had to wait 
-for all jobs to continue to the next generation. Web browsers were used by 
-Merelo et al. \cite{JSON} using Javascript to implement the algorithm, this has the advantage of not requiring the installation of additional software. 
+outputs were received a validation step ensured all outputs match.
+
+Merelo et al. \cite{JSON} developed a Javascript PEA that distributes the evolutionary process over the web,
+this provides the added advantage of not requiring the installation of additional software in each computing node. 
 In this work the server receives an Ajax request with the best individual 
 obtained from the local evolution in clients, and then responds with 
 additional parameters and the best individual in the population so far. 
-If a client is disconnected no special measures are taken. Several cloud-based
-EC solutions are based on a  global queue of tasks and a Map-Reduce 
-implementation which normally handles failures by the re-execution of 
-tasks \cite{fazenda2012,di2013towards,FlexGP}. 
+Other similar cloud-based solutions are based on a global queue of tasks and a Map-Reduce 
+implementation which normally handles failures by the re-execution of  tasks \cite{fazenda2012,di2013towards,FlexGP}. 
 
 %This should be expanded a bit
 
@@ -195,12 +172,41 @@ tasks \cite{fazenda2012,di2013towards,FlexGP}.
 %% Lo que hice arriba es ir comparando la técnica de failover de cada
 %% propuesta me faltan las de abajo 
 
-%This pool-based approach can be traced back to the A-Teams system \cite{ateam}, which is not restricted to evolutionary algorithms.
-%Another proposal is made by G. Roy et al. \cite{roy:2009}, who developed a multi-threaded system with a shared memory architecture that is
-%executed within a distributed environment and achieves substantial performance gains compared to standard approaches. On the other hand, Bollin and Piastra \cite{bollini:1999} emphasize persistence over performance, proposing a system that decouples population storage from the basic evolutionary operations. A similar decoupled model is proposed by Merelo et al. \cite{merelo:2008}, who used a database to store the population that is accessed through a web-server. The most recent work that is comparable with EvoSpace is the SofEA algorithm proposed by Merelo et al. \cite{sofea1,sofea2}. SofEA is an evolutionary algorithm mapped to a central CouchDB object store. It provides an asynchronous and distributed search process, where the four main evolutionary operators are decoupled from the evolving population.
+In general, this pool-based approach can be traced back to the A-Teams system \cite{ateam}, which is not restricted to evolutionary algorithms.
+Another proposal is made by G. Roy et al. \cite{roy:2009}, who developed a multi-threaded system with a shared memory architecture that is
+executed within a distributed environment and achieves substantial performance gains compared to standard approaches. On the other hand, Bollin and Piastra \cite{bollini:1999} emphasize persistence over performance, proposing a system that decouples population storage from the basic evolutionary operations. A similar decoupled model is proposed by Merelo et al. \cite{merelo:2008}, who used a database to store the population that is accessed through a web-server. Finally, a recent PEA is SofEA proposed by Merelo et al. \cite{sofea1,sofea2},
+an EA that is mapped to a central CouchDB object store. It provides an asynchronous and distributed search process, where the four main evolutionary operators are decoupled from the evolving population.
+
+This work, however, focuses on EvoSpace, a framework to develop PEAs using heterogeneous and unreliable resources \cite{}, described in greater
+detail in the following section.
  
 \section{EvoSpace}
 \label{sec:evo}
+EvoSpace is based on Linda's tuple space \cite{Evospace} coordination model, where each node asynchronously
+pulls its work from a central shared memory. The core elements of EvoSpace are a central 
+repository for the evolving population and remote clients called EvoWorkers,
+which pull random samples of the population to perform on them the basic evolutionary
+processes (selection, variation and survival), once the work is done, the modified sample is pushed back to the central population.
+
+This model contrasts with the use of a global queue of tasks and
+implementations of map-reduce algorithms, favored in other proposals PEAs
+\cite{fazenda2012,di2013towards,FlexGP}.
+Following the tuple space model, when individuals are pulled from the EvoSpace
+container these are removed from it, so that no other EvoWorker can use them.
+This design decision has several known benefits relevant to concurrency control 
+in distributed systems, and also is an effective way of distributing the workload.
+Leaving a copy of the individual in the population server free to be pulled by other EvoWorkers will result in redundant work and this could be
+costly if the task at hand is time consuming. EvoWorkers are expected to be 
+unreliable, as they can loose a connection or are simply shut down or removed 
+from the client. When an EvoWorker is lost, so are the individuals pulled from
+the repository. Depending on the type of algorithm been executed, the lost of
+these samples could have a high cost. To address the problem of unreliable 
+EvoWorkers, EvoSpace uses a simple re-insertion algorithm that also 
+prevents the starvation of the population pool. Other pool based algorithms
+normally use a random insertion technique, but we argue this could negatively 
+impact the outcome of the algorithm in some cases.
+
+
 
 EvoSpace [{\em references hidden for blind review}] consists of two main components (see figure~\ref{fig:evo}): (i) the EvoSpace 
 container that stores the evolving population and (ii) EvoWorkers, which execute 
