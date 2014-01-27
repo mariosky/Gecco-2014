@@ -17,6 +17,7 @@ PEAKS = None #GLOBAL Set in work()
 MUTPB = random.random()
 CXPB  = random.random()
 SAMPLE_SIZE = random.randint(12,24)
+WORKER_GENERATIONS = random.randint(5, 30)
 
 def evalPeaks(individual):
     global PEAKS
@@ -85,7 +86,7 @@ def evolve(sample_num, config):
     best_first   = None
     # Begin the evolution
 
-    for g in range(config["WORKER_GENERATIONS"]):
+    for g in range(WORKER_GENERATIONS):
         # Select the next generation individuals
         if best_individual:
             pop[0] = best_individual
@@ -158,7 +159,7 @@ def evolve(sample_num, config):
     return best >= 1.0, \
            [config["CHROMOSOME_LENGTH"],best, sample_num, round(time.time() - start, 2),
             round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned,
-            MUTPB, CXPB, SAMPLE_SIZE]
+            MUTPB, CXPB, SAMPLE_SIZE,WORKER_GENERATIONS]
 
 
 def work(params):

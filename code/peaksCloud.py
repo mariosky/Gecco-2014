@@ -9,7 +9,7 @@ config = yaml.load(open("conf/conf.yaml"))
 experiment = "w%d-%d-p%d" % (config["NUMBER_OF_WORKERS"], config["RETURN_RATE"]*100,config["POPULATION_SIZE"])
 experiment_id = experiment + "-%d" % round(time.time(),0)
 
-datafile = open(experiment_id+".dat","a")
+datafile = open("data/"+experiment_id+".dat","a")
 conf_out = open("conf/"+experiment_id+".yaml","w")
 yaml.dump(config, conf_out)
 conf_out.close()
