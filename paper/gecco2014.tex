@@ -59,21 +59,21 @@
 \section{Introduction}
 \label{sec:intro}
 Thanks in part  to evolutionary computation (EC) research, scientists and engineers from many fields now understand the remarkable power of
-the natural search process described by the biological theory of Neo-Darwinian evolution \cite{}. 
-Inspired in biological evolution, EC researchers have developed a variety of search and optimization algorithms \cite{}.
+the natural search process described by the biological theory of Neo-Darwinian evolution \cite{holland}. 
+Inspired in biological evolution, EC researchers have developed a variety of search and optimization algorithms \cite{eiben}.
 %Empty statement, maybe delete.
 
 While EAs are inspired by evolution, they mostly follow an abstract model of the natural process.
 For instance, one aspect that is omitted from most EAs is an open-ended search process,
 in practice EAs are used to solve problems with well defined objectives, while natural evolution is an adaptive process without an a priori goal or purpose.
-Such open-ended EAs have been developed, mostly for artistic design \cite{}, interactive evolution \cite{} and artificial life systems \cite{}.
+Such open-ended EAs have been developed, mostly for artistic design \cite{Musart}, interactive evolution \cite{ie1} and artificial life systems \cite{avida}.
 Other interesting features of biological evolution, is that it is an intrinsically parallel, distributed and asynchronous process,
 undoubtedly important features that have allowed evolution to produce impressive results throughout nature.
 However, some of these features are not trivially included into standard EAs,
-which are mostly coded as sequential and synchronous algorithms \cite{}.
+which are mostly coded as sequential and synchronous algorithms \cite{eiben}.
 
-For instance, a large body of work exists in EA parallelization, using multiple CPU cores \cite{}, PCs \cite{} and GPUs \cite{}.
-However, distributed EAs have started to become common only recently \cite{}.
+For instance, a large body of work exists in EA parallelization, using multiple CPU cores, multiple nodes and GPUs \cite{}.
+However, distributed and asynchronous EAs have started to become common only recently.
 In particular, recent trends in information technology have opened new lines of future development for EC research.
 Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
 These resources are easily accessible through popular internet technologies, such as cloud computing, 
@@ -96,20 +96,19 @@ connections, low bandwidth, abandoned work, security and privacy are all importa
 However, here we focus on a common issue with most EAs, that is only amplified in a PEA, a problem that can be referred to as parametrization.
 In general, among machine learning methodologies, EAs are highly criticized by the large number of parameters they posses,
 that for real world problems need to be tuned empirically or require additional heuristic processes to be included into the search to
-adjust the parameters automatically \cite{}.
+adjust the parameters automatically \cite{ss}.
 In the case of a PEAs, this issue is magnified since the underlying system architecture adds several degrees of freedom to the search process.
 
 This work studies a recently proposed pool-based system called EvoSpace, a framework to develop PEAs using 
 a heterogeneous collection of possibly unreliable resources.
-EvoSpace is based on Linda's tuple
-space \cite{Evospace} coordination model, where each node asynchronously
-pulls its work from a central shared memory. The core elements of EvoSpace are a central 
+EvoSpace is based on Linda's tuple space coordination model, where each node asynchronously
+pulls its work from a central shared memory  \cite{Evospace,Musart,FreeLunch,Fire}. The core elements of EvoSpace are a central 
 repository for the evolving population and remote clients here called EvoWorkers
 which pull random samples of the population to perform on them the basic evolutionary
 processes (selection, variation and survival), once the work is done, the
 modified sample is pushed back to the central population.
-Despite some promising initial results \cite{}, research devoted to EvoSpace has not addressed the parametrization issue mentioned above.
-In the study presented here, a recent approach called Randomized Parameter Setting Strategy (RPSS) \cite{} is applied to EvoSpace and tested on several
+Despite some promising initial results \cite{Evospace,Musart,FreeLunch,Fire}, research devoted to EvoSpace has not addressed the parametrization issue mentioned above.
+In the study presented here, a recent approach called Randomized Parameter Setting Strategy (RPSS) \cite{fuku1,fuku2} is applied to EvoSpace and tested on several
 benchmark problems.
 The idea behind RPSS is that in a distributed EA, algorithm parametrization may be completely skipped for a successful search,
 with research showing that when the number of distributed process is large enough, algorithm parameters can be set randomly and still achieve
@@ -145,7 +144,7 @@ The remainder of the paper proceeds as follows. Section \ref{sec:work}
 \section{Related Work}
 \label{sec:work}
 Given the computational cost of many EAs, researchers have turned towards internet and cloud based software systems.
-For instance, Fern\'andez et al. \cite{}% articulo Paco, Gustavo y Leo publucado en Natural Computing}
+For instance, Fern\'andez et al. \cite{nc}% articulo Paco, Gustavo y Leo publucado en Natural Computing}
 use the well-known Berkeley Open Infrastructure for Network Computing (BOINC) to distribute EA runs across a
 heterogeneous network of volunteer computers using virtual machines.
 
@@ -177,7 +176,7 @@ Another proposal is made by G. Roy et al. \cite{roy:2009}, who developed a multi
 executed within a distributed environment and achieves substantial performance gains compared to standard approaches. On the other hand, Bollin and Piastra \cite{bollini:1999} emphasize persistence over performance, proposing a system that decouples population storage from the basic evolutionary operations. A similar decoupled model is proposed by Merelo et al. \cite{merelo:2008}, who used a database to store the population that is accessed through a web-server. Finally, a recent PEA is SofEA proposed by Merelo et al. \cite{sofea1,sofea2},
 an EA that is mapped to a central CouchDB object store. It provides an asynchronous and distributed search process, where the four main evolutionary operators are decoupled from the evolving population.
 
-This work, however, focuses on EvoSpace, a framework to develop PEAs using heterogeneous and unreliable resources \cite{}, described in greater
+This work, however, focuses on EvoSpace, a framework to develop PEAs using heterogeneous and unreliable resources \cite{Evospace,Musart,FreeLunch,Fire}, described in greater
 detail in the following section.
  
 \section{EvoSpace}
@@ -260,9 +259,9 @@ Indeed, this problem has received a growing level of interest in recent years, a
 where the aim is to develop self-adaptive or auto-tuning systems, that reduces the amount of human intervention that might be required before performing
 an EA-based search.
 
-However, recent work in \cite{} has shown a promising alternate approach for EAs that employ multiple evolving populations.
-In particular, the RPSS approach proposed in \cite{} is as interesting as it is simple.
-First, consider the original configuration studied in \cite{}, an Island Model EA.
+However, recent work in \cite{fuku1,fuku2} has shown a promising alternate approach for EAs that employ multiple evolving populations.
+In particular, the RPSS approach proposed in \cite{fuku1} is as interesting as it is simple.
+First, consider the original configuration studied in \cite{fuku1,fuku2}, an Island Model EA.
 In an Island Model, a set of N separate populations, or demes, run semi-isolated evolutionary processes, organized using a particular
 neighborhood structure, such as ring or a random graph.
 Each deme is not totally isolated, since after a certain amount of time (generations or function evaluation) a set of individuals is exchanged between
@@ -273,13 +272,13 @@ Moreover, the additional complexity of the Island Model incorporates additional 
 performing a run.
 
 Such a tuning task can become overwhelming, particularly if the number of islands is excessively large (hundreds).
-Therefore, the proposal in \cite{} is to set the parameter values randomly, without a tuning or self-adaptive process whatsoever.
+Therefore, the proposal in \cite{fuku1} is to set the parameter values randomly, without a tuning or self-adaptive process whatsoever.
 The RPSS approach is to set the parameters of each deme randomly at the beginning of the run, a very simple and apparently naive approach.
-Nevertheless, results reported in \cite{} exhibit promise, achieving competitive results while substantially reducing the amount
+Nevertheless, results reported in \cite{fuku1,fuku2} exhibit promise, achieving competitive results while substantially reducing the amount
 of effort required to tune the system (the approach only requires the user to specify a range of valid values for each parameter).
 
-Following \cite{}, the proposal of the current work is to apply the RPSS approach to a PEA developed with EvoSpace.
-However, before turning to the experimental work, lets highlight the main differences between a PEA and the Island Model studied in \cite{}.
+Following \cite{fuku1}, the proposal of the current work is to apply the RPSS approach to a PEA developed with EvoSpace.
+However, before turning to the experimental work, lets highlight the main differences between a PEA and the Island Model studied in \cite{fuku1,fuku2}.
 First, the Island Model is a synchronous EA, while it implements a higher level of parallelization than a normal EA, and is amenable to distributed implementations,
 it still relies on a synchronized system in order to perform migration events.
 Second, the PEA approach based on EvoWorkers can be implemented with as a more heterogeneous system than the Island Model.
@@ -342,20 +341,49 @@ which is evaluated in the experimental work presented next.
 
 \section{Experimental work}
 \label{sec:experiments}
+The goal of this paper is to evaluate RPSS as a parametrization approach for a PEA developed over EvoSpace,
+in particular a genetic algorithm (GA).
+As stated before, the goal is to determine if a random configuration for each of the $n$ EvoWorkers that collaborate on a given run
+can achieve competitive results compared to a conventional tuning approach.
+The parameters considered are: 1) crossover probability; 2) mutation probability; 3) tournament size (selection); 4) sample size;
+and 5) number of generations.
+The valid ranges established for each parameter are summarized in Table \ref{tab:params}.
 
+\begin{table}[!t]
+\caption{Valid ranges for each EvoWorker parameter.}
+\label{tab:params}
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Parameter} & \textbf{Range} \\
+\hline
+\hline
+Crossover probability & \\
+Mutation probability & \\
+Tournament size & \\
+Sample Size & \\
+Generations & \\
+\hline
+\end{tabular}
+\end{table}
+
+To gauge the effectiveness of RPSS on a PEA, it is compared with three different parametrization strategies, similar to what is done in \cite{fuku1,fuku2}.
+First, the baseline or control method, is an ad-hoc-homogeneous-parametrization (AHP),
+where all workers share the same homogeneous parameters, set to previously hand-tuned values \cite{Evospace,Musart,FreeLunch,Fire}.
+Second, the best-homogeneous-parametrization (BHP), where 200 random parametrizations are generated,
+shared across all EvoWorkers, and the best one is chosen.
+Finally, the random-heterogeneous-parametrization (RHP), where the parameters of each worker are set independently at random at
+the beginning of each run.
+Note that Of all three methods, RHP is the only one that does not require any configuration or parameter tuning before a run.
 
 
 
 
 \subsection{Benchmark}
 \label{ss:benchmark}
-
-
-
-The experiment reported here uses a multimodal problem generator. A P-Peaks generator
-has been chosen because the problem (and the computing resources needed for the search) 
-can be appropriately scaled. Proposed by De Jong et al. in \cite{Jong:PS97} a
-P-Peaks instance is created by generating a set of P random N-bit
+The algorithms are evaluated using four common benchmarks.
+First, the P-Peaks generator of multimodal problems proposed by De Jong et al. \cite{Jong:PS97}.
+A P-Peaks instance is created by generating a set of P random N-bit
 strings, which represent the location of the P peaks in the space. To
 evaluate an arbitrary bit string \begin{math} \mathbf{x} \end{math}
 first locate the nearest peak (in Hamming space). Then the fitness of
@@ -380,72 +408,107 @@ easy or hard is the problem. In their experiments an instance having P
 = 200 peaks and N = 100 bits per string is considered to produce a
 considerably difficult problem.
 
-\subsection{Experimental Set-up}
-As EvoSpace is only the population store, EvoWorkers must implement 
-the genetic operators. The genetic algorithm executed by EvoWorkers has been implemented 
-using a modified DEAP (Distributed Evolutionary Algorithms in Python) 
-framework \cite{DEAP_JMLR2012} GA. Is important to note that only the basic non-distributed GA 
-library was used. Three methods were added to the local algorithm: 
-{ \tt  getSample()} and  {\tt putBack()}; and  another for the  initialization 
-of the population. The implementation of the local GA simply uses DEAP´s methods; for instance to 
-generate the initial population, a local {\tt initialize()} is called 
-and the population sent to EvoSpace.
-
-The selection of parameters was based on those used in \cite{Alba:2002dq}: a
-tournament size of 4 individuals, a crossover rate of 0.85 and a
-population of 512 individuals. In  \cite{Jong:PS97} a mutation rate
-equal to the reciprocal of the chromosome length; is recommended, as
-DEAP uses two parameters they were defined as follows, mutation
-probability of 0.5 and an independent flip probability of 0.02. For
-EvoWorkers the parameters were 128 worker generations for each
-sample, and a sample size of 16. To simulate unreliable workers each worker 
-was assigned a return sample probability. In the experiments the lower 
-probability was a 30\% chance of an EvoWorker returning a sample or
-an EvoWorker failing 70\% of the time; other return sample probabilities
-where 50\%, 70\% and 90\%. Experiments where carried out for 4, 
-8 and 16 EvoWorkers. In a pool based  asynchronous GAs there is usually no need 
-to wait for a worker´s job to start a new generation. Although supported by EvoSpace
-time outs were not chosen as triggers to feed the population with new
-individuals, the population size was used instead. We believe the population
-size is a better threshold as it is more critical to the GA performance. 
-In a previous work we found that when the population remaining in the pool 
-was near starvation, the time of completion was increased. For these 
-experiments, the insertion of individuals was triggered when less than 128
-individuals remain in the population; the number of individuals feed to the
-population was 128, or 8 samples when the re-insertion algorithm
-was used. A summary of the setup is presented in table~\ref{params}.
+Then, following \cite{fuku1}, three standard real-valued optimization problems are used,
+these are the Schwefel, Rastrigin, and Griewangk functions, with the number of dimensions set to
+40 in each case. 
+For the P-Peaks problem a standard bitstring representation is used, while the other three problems use a real-valued
+vector representation.
+Other GA specific details are summarized in Table \ref{tab:ga}.
 
 \begin{table}[!t]
-\renewcommand{\arraystretch}{1.3}
-\caption{GA and EvoWorker parameters for experiments.}
-\label{params}
+\caption{GA configuration for each benchmark problem.}
+\label{tab:ga}
 \centering
-\begin{tabular}{|l|c|}
+\begin{tabular}{|l|c|c|}
 \hline
-\multicolumn{2}{|c|}{GA Parameters} \\
+\textbf{Feature} & \textbf{P-Peaks} & \textbf{Real-valued problems} \\
 \hline
-Tournament size & 4 \\
-Crossover rate & 0.85  \\
-Population Size & 512 \\
-Mutation probability & 0.5 \\
-Independent bit flip probability  & 0.02 \\
 \hline
-\multicolumn{2}{|c|}{EvoWorker Parameters} \\
+Crossover type & & \\
+Mutation type & & \\
+Survival & & \\
+Variable range & $\{0,1\}$ & \\
+Individuals in the Pool &  & \\
 \hline
-Sample Size & 16 \\
-Generations & 128 \\
-\hline
-\multicolumn{2}{|c|}{Other Parameters} \\
-\hline
-PiCloud Worker Type & Realtime \\
-Number of Workers & 4,8,16 \\
-Return Sample Probability & 30\%,50\%,90\% \\
-Number of Executions & 30 \\
-
-\hline
-
 \end{tabular}
 \end{table}
+
+\subsection{Experimental Set-up and Results}
+Experiments are carried out using a different number of EvoWorkers $N$ on each problem.
+The first group of runs are done with $N=$ EvoWorkers, and then with $N=$.
+In each case, and for each problem, 30 independent runs are carried out.
+Results are summarized by tracking how the best solution found so far varies with respect to the total
+number of samples taken from the EvoSpace pool of individuals.
+These results are presented in Figures \ref{}, where the average +/1 standard deviation of the 30 runs are plotted
+for each of the three methods evaluated here (AHP, BHP and RHP).
+
+
+
+%As EvoSpace is only the population store, EvoWorkers must implement 
+%the genetic operators. The genetic algorithm executed by EvoWorkers has been implemented 
+%using a modified DEAP (Distributed Evolutionary Algorithms in Python) 
+%framework \cite{DEAP_JMLR2012} GA. Is important to note that only the basic non-distributed GA 
+%library was used. Three methods were added to the local algorithm: 
+%{ \tt  getSample()} and  {\tt putBack()}; and  another for the  initialization 
+%of the population. The implementation of the local GA simply uses DEAP´s methods; for instance to 
+%generate the initial population, a local {\tt initialize()} is called 
+%and the population sent to EvoSpace.
+%
+%The selection of parameters was based on those used in \cite{Alba:2002dq}: a
+%tournament size of 4 individuals, a crossover rate of 0.85 and a
+%population of 512 individuals. In  \cite{Jong:PS97} a mutation rate
+%equal to the reciprocal of the chromosome length; is recommended, as
+%DEAP uses two parameters they were defined as follows, mutation
+%probability of 0.5 and an independent flip probability of 0.02. For
+%EvoWorkers the parameters were 128 worker generations for each
+%sample, and a sample size of 16. To simulate unreliable workers each worker 
+%was assigned a return sample probability. In the experiments the lower 
+%probability was a 30\% chance of an EvoWorker returning a sample or
+%an EvoWorker failing 70\% of the time; other return sample probabilities
+%where 50\%, 70\% and 90\%. Experiments where carried out for 4, 
+%8 and 16 EvoWorkers. In a pool based  asynchronous GAs there is usually no need 
+%to wait for a worker´s job to start a new generation. Although supported by EvoSpace
+%time outs were not chosen as triggers to feed the population with new
+%individuals, the population size was used instead. We believe the population
+%size is a better threshold as it is more critical to the GA performance. 
+%In a previous work we found that when the population remaining in the pool 
+%was near starvation, the time of completion was increased. For these 
+%experiments, the insertion of individuals was triggered when less than 128
+%individuals remain in the population; the number of individuals feed to the
+%population was 128, or 8 samples when the re-insertion algorithm
+%was used. A summary of the setup is presented in table~\ref{params}.
+%
+%\begin{table}[!t]
+%\renewcommand{\arraystretch}{1.3}
+%\caption{GA and EvoWorker parameters for experiments.}
+%\label{params}
+%\centering
+%\begin{tabular}{|l|c|}
+%\hline
+%\multicolumn{2}{|c|}{GA Parameters} \\
+%\hline
+%Tournament size & 4 \\
+%Crossover rate & 0.85  \\
+%Population Size & 512 \\
+%Mutation probability & 0.5 \\
+%Independent bit flip probability  & 0.02 \\
+%\hline
+%\multicolumn{2}{|c|}{EvoWorker Parameters} \\
+%\hline
+%Sample Size & 16 \\
+%Generations & 128 \\
+%\hline
+%\multicolumn{2}{|c|}{Other Parameters} \\
+%\hline
+%PiCloud Worker Type & Realtime \\
+%Number of Workers & 4,8,16 \\
+%Return Sample Probability & 30\%,50\%,90\% \\
+%Number of Executions & 30 \\
+%
+%\hline
+%
+%\end{tabular}
+%\end{table}
 
 \begin{figure}[t]
 \centering
@@ -460,107 +523,57 @@ Number of Executions & 30 \\
 %% Hecho, Mario
 
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.5in]{eps/plot_time_CRS_w8.eps}
-\caption{Time required to solution, 8 Workers}
-\label{fig:plot_time_ri_w8}
-\end{figure}
 
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.5in]{eps/plot_time_CRS_w16.eps}
-\caption{Time required to solution, 16 Workers}
-\label{fig:plot_time_ri_w16}
-\end{figure}
-
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.5in]{eps/16_plot_evals.eps}
-\caption{Number of evaluations needed to solution, 16 Workers}
-\label{fig:plot_evals_w16}
-\end{figure}
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.5in]{eps/plot_percent_90.eps}
-\caption{Time required to solution, 90\% of returned samples}
-\label{fig:plot_percent_90}
-\end{figure}
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.5in]{eps/plot_percent_30.eps}
-\caption{Time required to solution, 30\% of returned samples}
-\label{fig:plot_percent_30}
-\end{figure}
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.5in]{eps/Fitness-w16-30-random.eps}
-\caption{Fitness by Sample number, 30\% of returned samples, 16 Workers, Random Algorithm}
-\label{fig:Fitness-w16-30-random}
-\end{figure}
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.5in]{eps/Fitness-w16-30-reinsert.eps}
-\caption{Fitness by Sample number, 30\% of returned samples, 16 Workers, Re-Insert Algorithm}
-\label{fig:Fitness-w16-30-reinsert}
-\end{figure}
-
-
-\subsection{Results}
-In this section, results from the experiments are discussed. 
-Figure~\ref{fig:plot_time_ri_w4} shows the time required 
-to solution when using four EvoWorkers. For a population of
-512 individuals and a sample size of 16, there is no
-difference in the time required to solution for 
-percentages of 50\% and above. Both re-insertion algorithms
-had comparable times. For 30 percent, both approaches 
-had slight increase in time. For 8 workers 
-(see Figure~\ref{fig:plot_time_ri_w8})  there was marginal
-decrease in overall time; and results where 
-similar to those found in the experiments with 4 workers.  
-Figure~\ref{fig:plot_time_ri_w16} shows results for 16 workers,
-when there was only a 30\% chance of returning a sample 
-the rate of re-insertions was high, approximately once every 35
-samples. In this case, the insertion of random individuals 
-resulted in a higher time to solution. For these experiments
-when there is not a high rate of re-insertion, both alternatives
-have similar results, but the re-insertion algorithm is better
-for situations when there are many starvation conditions. It appears
-that the insertion of random individuals is not detrimental when there
-are other evolved individuals in the pool. But when the remaining
-pool almost consists of random individuals, samples pulled by
-EvoWorkers need to start the search all over again. 
-If not many samples are then returned to the pool, the work needed to reach an
-optimum is increased. Figure~\ref{fig:plot_evals_w16} also shows the number 
-of evaluations needed to reach an optimum again for 16 workers.
-Figures~\ref{fig:plot_percent_90} and \ref{fig:plot_percent_30} show
-the time required to solution for 30 and 90 percent of returned samples.
-For 90\% both algorithms had similar speedups when incrementing the number of
-workers. The marginal speedup obtained for these experiments is related to 
-the population size, but this parameter was not changed. For 30\% 
-there was practically no speedup at all. The re-insert algorithm
-although not significant, had consistent decrease in time.         
-
-Fitness by time was measured as the average from each consecutive
-sample pulled by each worker. For each sample the average fitness
-was measured at the start and at the end of the local evolution.
-Also the minimum and maximum fitness values at start and finish was 
-recorded. Final fitness values are shown in double width lines in figures.
-Readings used for these figures include all samples, including
-those that where not returned.   
-Figure~\ref{fig:Fitness-w16-30-random} shows fitness by time
-for the random insertion algorithm, as expected initial fitness drops
-at certain points, when random insertion occurs. Average final fitness 
-is affected by random insertions.Figure~\ref{fig:Fitness-w16-30-reinsert}
-shows results for the re-insertion algorithm, with more
-characteristic curves for this type of algorithms. 
- 
+%\subsection{Results}
+%In this section, results from the experiments are discussed. 
+%Figure~\ref{fig:plot_time_ri_w4} shows the time required 
+%to solution when using four EvoWorkers. For a population of
+%512 individuals and a sample size of 16, there is no
+%difference in the time required to solution for 
+%percentages of 50\% and above. Both re-insertion algorithms
+%had comparable times. For 30 percent, both approaches 
+%had slight increase in time. For 8 workers 
+%(see Figure~\ref{fig:plot_time_ri_w8})  there was marginal
+%decrease in overall time; and results where 
+%similar to those found in the experiments with 4 workers.  
+%Figure~\ref{fig:plot_time_ri_w16} shows results for 16 workers,
+%when there was only a 30\% chance of returning a sample 
+%the rate of re-insertions was high, approximately once every 35
+%samples. In this case, the insertion of random individuals 
+%resulted in a higher time to solution. For these experiments
+%when there is not a high rate of re-insertion, both alternatives
+%have similar results, but the re-insertion algorithm is better
+%for situations when there are many starvation conditions. It appears
+%that the insertion of random individuals is not detrimental when there
+%are other evolved individuals in the pool. But when the remaining
+%pool almost consists of random individuals, samples pulled by
+%EvoWorkers need to start the search all over again. 
+%If not many samples are then returned to the pool, the work needed to reach an
+%optimum is increased. Figure~\ref{fig:plot_evals_w16} also shows the number 
+%of evaluations needed to reach an optimum again for 16 workers.
+%Figures~\ref{fig:plot_percent_90} and \ref{fig:plot_percent_30} show
+%the time required to solution for 30 and 90 percent of returned samples.
+%For 90\% both algorithms had similar speedups when incrementing the number of
+%workers. The marginal speedup obtained for these experiments is related to 
+%the population size, but this parameter was not changed. For 30\% 
+%there was practically no speedup at all. The re-insert algorithm
+%although not significant, had consistent decrease in time.         
+%
+%Fitness by time was measured as the average from each consecutive
+%sample pulled by each worker. For each sample the average fitness
+%was measured at the start and at the end of the local evolution.
+%Also the minimum and maximum fitness values at start and finish was 
+%recorded. Final fitness values are shown in double width lines in figures.
+%Readings used for these figures include all samples, including
+%those that where not returned.   
+%Figure~\ref{fig:Fitness-w16-30-random} shows fitness by time
+%for the random insertion algorithm, as expected initial fitness drops
+%at certain points, when random insertion occurs. Average final fitness 
+%is affected by random insertions.Figure~\ref{fig:Fitness-w16-30-reinsert}
+%shows results for the re-insertion algorithm, with more
+%characteristic curves for this type of algorithms. 
+% 
  
 
 % Podrías comparar también el resultado para un porcentaje
@@ -581,19 +594,19 @@ characteristic curves for this type of algorithms.
 \section{Conclusions and Further Work}
 \label{sec:conclusions}
 
-The re-insertion algorithm proposed for EvoSpace is a viable alternative
-to deal with a starving population in pool based GAs, and unreliable EvoWorkers.
-Using  a benchmark problem from the P-Peaks problem generator, 
-the approach was compared against the option of inserting  
-randomly generated individuals. The same parameters and computing resources
-were used when testing both algorithms with better times reported when
-using the proposed technique. For experiments where the population
-size is enough for the number of workers with their sample sizes, plus a 
-buffer to account for loss samples, then both algorithms could be used.
-However for cases when the number of EvoWorkers is unknown an hybrid approach
-could be used, insertion of random individuals to gradually increase the population
-size, and a re-insertion queue to handle lost samples. Further work could be
-focused on a hybrid approach, and also using heterogeneous computing resources. 
+%The re-insertion algorithm proposed for EvoSpace is a viable alternative
+%to deal with a starving population in pool based GAs, and unreliable EvoWorkers.
+%Using  a benchmark problem from the P-Peaks problem generator, 
+%the approach was compared against the option of inserting  
+%randomly generated individuals. The same parameters and computing resources
+%were used when testing both algorithms with better times reported when
+%using the proposed technique. For experiments where the population
+%size is enough for the number of workers with their sample sizes, plus a 
+%buffer to account for loss samples, then both algorithms could be used.
+%However for cases when the number of EvoWorkers is unknown an hybrid approach
+%could be used, insertion of random individuals to gradually increase the population
+%size, and a re-insertion queue to handle lost samples. Further work could be
+%focused on a hybrid approach, and also using heterogeneous computing resources. 
 
 \section{Acknowledgements}
 
