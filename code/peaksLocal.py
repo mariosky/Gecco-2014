@@ -36,7 +36,7 @@ datafile = open(experiment_id+".dat","a")
 def evalPeaks(individual):
     return peaks.p_peaks(individual, pks),
 
-pks = peaks.get_peaks(number=256,bits=512,seed=64)
+pks = peaks.get_peaks(number=512,bits=256,seed=64)
 
 
 
@@ -49,7 +49,7 @@ toolbox = base.Toolbox()
 toolbox.register("attr_bool", random.randint, 0, 1)
 # Structure initializers
 toolbox.register("individual", tools.initRepeat, creator.Individual,
-                 toolbox.attr_bool, 512)
+                 toolbox.attr_bool, 256)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 
@@ -61,7 +61,7 @@ toolbox.register("select", tools.selTournament, tournsize=4)
 
 def main(i):
     start = time.time()
-    pop = toolbox.population(n=512)
+    pop = toolbox.population(n=100)
     CXPB, MUTPB, NGEN = 0.85, 0.5, 2000
 
     print "Start of evolution"

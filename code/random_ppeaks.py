@@ -69,7 +69,16 @@ def evolve(sample_num, config):
     toolbox = getToolBox(config)
 
     start= time.time()
-    evospace_sample = get_sample(config)
+
+    try:
+        evospace_sample = get_sample(config)
+    except:
+        return 0.0, \
+           [config["CHROMOSOME_LENGTH"],0, sample_num, round(time.time() - start, 2),
+            0 , 0, 0, 0, 0,"EXCEPTION_GET",
+            MUTPB, CXPB, SAMPLE_SIZE,WORKER_GENERATIONS,0]
+
+
     tGetSample= time.time()-start
 
     startEvol = time.time()
@@ -79,6 +88,8 @@ def evolve(sample_num, config):
     fitnesses = map(toolbox.evaluate, pop)
     for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
+
+    sample_id = evospace_sample['sample_id']
 
 
     total_evals = len(pop)
@@ -150,16 +161,24 @@ def evolve(sample_num, config):
 
     startPutback =  time.time()
     if random.random() < config["RETURN_RATE"]:
-        put_sample(config, evospace_sample)
+        try:
+            put_sample(config, evospace_sample)
+        except:
+            return 0.0, \
+           [config["CHROMOSOME_LENGTH"],best, sample_num, round(time.time() - start, 2),
+            round(tGetSample,2) , round( tEvol,2), 0, total_evals, best_first,"EXCEPTION_PUT",
+            MUTPB, CXPB, SAMPLE_SIZE,WORKER_GENERATIONS,sample_id]
+
         was_returned= "RETURNED"
     else:
-         was_returned= "LOST"
+        was_returned= "LOST"
+
     tPutBack = time.time() - startPutback
 
     return best >= 1.0, \
            [config["CHROMOSOME_LENGTH"],best, sample_num, round(time.time() - start, 2),
             round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned,
-            MUTPB, CXPB, SAMPLE_SIZE,WORKER_GENERATIONS]
+            MUTPB, CXPB, SAMPLE_SIZE,WORKER_GENERATIONS,sample_id]
 
 
 def work(params):
