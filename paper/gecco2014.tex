@@ -235,71 +235,123 @@ Figure~\ref{fig:evo} illustrates the main components of EvoSpace.
 
 
 \subsection{Implementation}
-Populations of individuals are stored in-memory, using Redis, a
-key-value database, which 
- was chosen over a relational database system, or other non-SQL 
-alternatives, because it provides a hash based implementation of sets 
-and queues which are natural data structures for the EvoSpace model. 
-The logic of EvoSpace is implemented as a python module and exposed as a web 
-service using Cherrypy http library. The EvoSpace modules are available with 
-a Simplified BSD License from 
+The population of an EA is stored in-memory using the key-value database Redis, chosen over a relational database system, or other non-SQL 
+alternatives, because it provides a hash based implementation of sets  and queues which are natural data structures for a PEA model such as EvoSpace. 
+EvoSpace is implemented as a python module and exposed as a web service using the Cherrypy http library.
+The EvoSpace modules are freely available with  a Simplified BSD License from \url{anonymous URL}.
 % https://github.com/mariosky/EvoSpace. 
-\url{anonymous URL}.
+
+The EvoSpace system is deployed using Heroku, a multi-language Platfor-as-a-Service (PaaS).
+The basic unit of composition on
+Heroku is a lightweight container running a single user-specified process.
+These containers, which they call {\em dynos}, can include web (only these can receive {\tt http} requests) and worker processes
+(including systems used for database and queuing, for instance).
+Once deployed the web process can be scaled up by assigning more dynos;
+in our case and in the more demanding configurations of our experiments, 
+the web process was scaled to 20 dynos. Instructions and code for deployment 
+is available at \url{anonymous URL}.
+Finally, for the experiments carried out for this paper, EvoSpace workers are distributed using the PiClouf PaaS.
+
+\section{Problem Statement}
+As stated before, one of the main problems in EC research is referred to as parameter tuning.
+This problem is of particular importance in real-world scenarios, where there can be little prior insights regarding what might be the best
+configuration for an EA tool, especially if the intent is to use it as a black-box optimizer.
+Indeed, this problem has received a growing level of interest in recent years, as evidenced by tracks such as Self-Search at GECCO,
+where the aim is to develop self-adaptive or auto-tuning systems, that reduces the amount of human intervention that might be required before performing
+an EA-based search.
+
+However, recent work in \cite{} has shown a promising alternate approach for EAs that employ multiple evolving populations.
+In particular, the RPSS approach proposed in \cite{} is as interesting as it is simple.
+First, consider the original configuration studied in \cite{}, an Island Model EA.
+In an Island Model, a set of N separate populations, or demes, run semi-isolated evolutionary processes, organized using a particular
+neighborhood structure, such as ring or a random graph.
+Each deme is not totally isolated, since after a certain amount of time (generations or function evaluation) a set of individuals is exchanged between
+neighboring dems, a process known as migration.
+Obviously, the problem of setting parameter values is magnified by a factor of N, since it is not possible to assume that for
+a particular problem the best configuration is an homogeneous system where all demes share the same set of parameters.
+Moreover, the additional complexity of the Island Model incorporates additional degrees of freedom that must be tuned before
+performing a run.
+
+Such a tuning task can become overwhelming, particularly if the number of islands is excessively large (hundreds).
+Therefore, the proposal in \cite{} is to set the parameter values randomly, without a tuning or self-adaptive process whatsoever.
+The RPSS approach is to set the parameters of each deme randomly at the beginning of the run, a very simple and apparently naive approach.
+Nevertheless, results reported in \cite{} exhibit promise, achieving competitive results while substantially reducing the amount
+of effort required to tune the system (the approach only requires the user to specify a range of valid values for each parameter).
+
+Following \cite{}, the proposal of the current work is to apply the RPSS approach to a PEA developed with EvoSpace.
+However, before turning to the experimental work, lets highlight the main differences between a PEA and the Island Model studied in \cite{}.
+First, the Island Model is a synchronous EA, while it implements a higher level of parallelization than a normal EA, and is amenable to distributed implementations,
+it still relies on a synchronized system in order to perform migration events.
+Second, the PEA approach based on EvoWorkers can be implemented with as a more heterogeneous system than the Island Model.
+In particular, the sample (population) size and number of generations executed by each EvoWorker can be different,
+particularly since there is no need for synchronized migrations.
+Notice that in EvoSpace, there is no explicit migration process, on the other hand EvoWorkers exchange population members through the centralized pool.
+These differences could be important regarding the applicability of RPSS on an EvoSpace PEA,
+which is evaluated in the experimental work presented next.
+
 
 
 % Un comentario que hicieron en este paper es que perdemos mucho tiempo en hablar de la implementacion en estas herramientas, estoy de acuerdo que para el objetivo del articulo no aporta nada. - Mario
 
-\subsection{Evospace as a Heroku Application}
-
-Heroku (\url{http://heroku.com}) is a multi-language PaaS, supporting among others
-Ruby, Python and Java applications. The basic unit of composition on
-Heroku is a lightweight container running a single user-specified
-process. These containers, which they call {\em dynos}, can include web
-(only these can receive {\tt http} requests) and worker processes
-(including systems used for database and queuing, for instance).
-These  process types are the prototypes from which one or more dynos 
-can be instantiated; if the number of requests to the server increases
-more instances can be assigned on-the-fly. In our case, our CherryPy 
-web application server runs in one web process, when the number 
-of workers was increased we added more dynos (instances) of the 
-CherryPy process.
-
-This model is very different from a VPS where users pay for the
-whole server; in a process based model, users pay only for the
-processes they need; being a {\em freemium} model means also that, if
-a minimum level of resources is not exceeded, it can be used for
-free. 
-
-Once deployed the web process can be scaled up by assigning more dynos;
-in our case and in the more demanding configurations of our experiments, 
-the web process was scaled to 20 dynos. Instructions and code for deployment 
-is available at \url{anonymous URL} % Tienes
+%\subsection{Evospace as a Heroku Application}
+%
+%Heroku (\url{http://heroku.com}) is a multi-language Platfor-as-a-Service (PaaS), supporting among others
+%Ruby, Python and Java applications. The basic unit of composition on
+%Heroku is a lightweight container running a single user-specified
+%process. These containers, which they call {\em dynos}, can include web
+%(only these can receive {\tt http} requests) and worker processes
+%(including systems used for database and queuing, for instance).
+%These  process types are the prototypes from which one or more dynos 
+%can be instantiated; if the number of requests to the server increases
+%more instances can be assigned on-the-fly. In our case, our CherryPy 
+%web application server runs in one web process, when the number 
+%of workers was increased we added more dynos (instances) of the 
+%CherryPy process.
+%
+%This model is very different from a VPS where users pay for the
+%whole server; in a process based model, users pay only for the
+%processes they need; being a {\em freemium} model means also that, if
+%a minimum level of resources is not exceeded, it can be used for
+%free. 
+%
+%Once deployed the web process can be scaled up by assigning more dynos;
+%in our case and in the more demanding configurations of our experiments, 
+%the web process was scaled to 20 dynos. Instructions and code for deployment 
+%is available at \url{anonymous URL} % Tienes
                                 % que anonimizarlo tamibén - JJ
 %http://www.evospace.org/software.html
 
 
 
-\subsection{Evoworkers as PiCloud Jobs}
-PiCloud is a Platform as a Service (PaaS), with deep Python integration; 
-using a library, Python functions are transparently uploaded to PiCLoud's 
-servers as units of computational work they call \emph{jobs}. 
-Each job is added to a queue, and when there is a core available, 
-the job is assigned to it. Both Heroku and PiCloud 
-platforms are deployed  on top of Amazon Web Services (AWS) 
-infrastructure in the US-EAST Region. This ensures minimal 
-latency and a high bandwidth communication between the services, 
-and there is no charge for data transfer costs between both services.
-For the experiments type c1 and c2 Real Time workers where used.  
-The code for the EvoWorkers implementation and experiment data is publicly available 
-from a github repository \url{anonymous URL}. 
-% \url{http://goo.gl/92tMFw}. % Github tiene su
-                                % propio acortador, pero también
-                                % tienes que anonimizarlo - JJ 
+%\subsection{Evoworkers as PiCloud Jobs}
+%PiCloud is a Platform as a Service (PaaS), with deep Python integration; 
+%using a library, Python functions are transparently uploaded to PiCLoud's 
+%servers as units of computational work they call \emph{jobs}. 
+%Each job is added to a queue, and when there is a core available, 
+%the job is assigned to it. Both Heroku and PiCloud 
+%platforms are deployed  on top of Amazon Web Services (AWS) 
+%infrastructure in the US-EAST Region. This ensures minimal 
+%latency and a high bandwidth communication between the services, 
+%and there is no charge for data transfer costs between both services.
+%For the experiments type c1 and c2 Real Time workers where used.  
+%The code for the EvoWorkers implementation and experiment data is publicly available 
+%from a github repository \url{anonymous URL}. 
+%% \url{http://goo.gl/92tMFw}. % Github tiene su
+%                                % propio acortador, pero también
+%                                % tienes que anonimizarlo - JJ 
 
 \section{Experimental work}
 \label{sec:experiments}
+
+
+
+
+
 \subsection{Benchmark}
 \label{ss:benchmark}
+
+
+
 The experiment reported here uses a multimodal problem generator. A P-Peaks generator
 has been chosen because the problem (and the computing resources needed for the search) 
 can be appropriately scaled. Proposed by De Jong et al. in \cite{Jong:PS97} a
