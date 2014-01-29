@@ -17,7 +17,7 @@
 \usepackage{url}
 
 
-\begin{document}
+\begin{document} % Something about unreliable workers: assessing the effect, for instance - JJ
 \title{ Unreliable Heterogeneous Workers in a Pool-based Evolutionary Algorithm}
 \subtitle{TRACK: }
 
@@ -76,7 +76,7 @@ For instance, a large body of work exists in EA parallelization, using multiple 
 However, distributed and asynchronous EAs have started to become common only recently.
 In particular, recent trends in information technology have opened new lines of future development for EC research.
 Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
-These resources are easily accessible through popular internet technologies, such as cloud computing, 
+These resources are easily accessible through popular Internet technologies, such as cloud computing, 
 peer-to-peer (P2P), and web environments.
 
 Moreover, these technologies are intended for the development of parallel, distributed and asynchronous systems,
@@ -88,7 +88,7 @@ power that would not be available otherwise, but on the other hand, have the
 challenge to manage heterogeneous unreliable computing resources. 
 In particular, we are interested in systems that follow a pool-based approach, where the search process is conducted
 by a collection, of possibly heterogeneous, collaborating processes using a shared repository or population pool.
-We will refer to succh algorithms as Pool-based EAs or PEAs, and highlight the fact that such systems are
+We will refer to such algorithms as Pool-based EAs or PEAs, and highlight the fact that such systems are
 intrinsically parallel, distributed and asynchronous.
 
 Despite promising results, PEAs present several notable challenges. From a technological perspective, for example, lost 
@@ -143,7 +143,7 @@ The remainder of the paper proceeds as follows. Section \ref{sec:work}
 
 \section{Related Work}
 \label{sec:work}
-Given the computational cost of many EAs, researchers have turned towards internet and cloud based software systems.
+Given the computational cost of many EAs, researchers have turned towards Internet and cloud based software systems.
 For instance, Fern\'andez et al. \cite{nc}% articulo Paco, Gustavo y Leo publucado en Natural Computing}
 use the well-known Berkeley Open Infrastructure for Network Computing (BOINC) to distribute EA runs across a
 heterogeneous network of volunteer computers using virtual machines.
@@ -173,7 +173,7 @@ implementation which normally handles failures by the re-execution of  tasks \ci
 
 In general, this pool-based approach can be traced back to the A-Teams system \cite{ateam}, which is not restricted to evolutionary algorithms.
 Another proposal is made by G. Roy et al. \cite{roy:2009}, who developed a multi-threaded system with a shared memory architecture that is
-executed within a distributed environment and achieves substantial performance gains compared to standard approaches. On the other hand, Bollin and Piastra \cite{bollini:1999} emphasize persistence over performance, proposing a system that decouples population storage from the basic evolutionary operations. A similar decoupled model is proposed by Merelo et al. \cite{merelo:2008}, who used a database to store the population that is accessed through a web-server. Finally, a recent PEA is SofEA proposed by Merelo et al. \cite{sofea1,sofea2},
+executed within a distributed environment and achieves substantial performance gains compared to standard approaches. On the other hand, Bollini and Piastra \cite{bollini:1999} emphasize persistence over performance, proposing a system that decouples population storage from the basic evolutionary operations. A similar decoupled model is proposed by Merelo et al. \cite{merelo:2008}, who used a database to store the population that is accessed through a web-server. Finally, a recent PEA is SofEA proposed by Merelo et al. \cite{sofea1,sofea2},
 an EA that is mapped to a central CouchDB object store. It provides an asynchronous and distributed search process, where the four main evolutionary operators are decoupled from the evolving population.
 
 This work, however, focuses on EvoSpace, a framework to develop PEAs using heterogeneous and unreliable resources \cite{Evospace,Musart,FreeLunch,Fire}, described in greater
@@ -212,7 +212,7 @@ container that stores the evolving population and (ii) EvoWorkers, which execute
 the actual evolutionary process, while EvoSpace acts only as a population repository.
 In a basic configuration, EvoWorkers pull a small random subset of the 
 population, and use it as the initial population for a local EA executed 
-on the client machine. Afterwards, the evolved population from each EvoWorker 
+on the client machine. Afterward, the evolved population from each EvoWorker 
 is returned to the EvoSpace container. When individuals are pulled from the 
 container they remain in a phantom state, they cannot be pulled again but 
 they are not deleted. Only if and when the EvoWorker returns the replacement 
@@ -221,7 +221,7 @@ starvation or optionally when a time-out occurs new phantom individuals are
 re-inserted to the population and available again. This can be done because a 
 copy of each sample is stored in a priority queue used by EvoSpace to re-insert 
 the sample to the central population; similar to games where characters are 
-Respawned after a certain time. In the experiments conducted in this work 
+Re-spawned after a certain time. In the experiments conducted in this work 
 re-insertion occurs when the population size is below a certain threshold. 
 Figure~\ref{fig:evo} illustrates the main components of EvoSpace.
 
@@ -236,11 +236,11 @@ Figure~\ref{fig:evo} illustrates the main components of EvoSpace.
 \subsection{Implementation}
 The population of an EA is stored in-memory using the key-value database Redis, chosen over a relational database system, or other non-SQL 
 alternatives, because it provides a hash based implementation of sets  and queues which are natural data structures for a PEA model such as EvoSpace. 
-EvoSpace is implemented as a python module and exposed as a web service using the Cherrypy http library.
+EvoSpace is implemented as a python module and exposed as a web service using the Cherrypy HTTP library.
 The EvoSpace modules are freely available with  a Simplified BSD License from \url{anonymous URL}.
 % https://github.com/mariosky/EvoSpace. 
 
-The EvoSpace system is deployed using Heroku, a multi-language Platfor-as-a-Service (PaaS).
+The EvoSpace system is deployed using Heroku, a multi-language Platform-as-a-Service (PaaS).
 The basic unit of composition on
 Heroku is a lightweight container running a single user-specified process.
 These containers, which they call {\em dynos}, can include web (only these can receive {\tt http} requests) and worker processes
@@ -265,7 +265,7 @@ First, consider the original configuration studied in \cite{fuku1,fuku2}, an Isl
 In an Island Model, a set of N separate populations, or demes, run semi-isolated evolutionary processes, organized using a particular
 neighborhood structure, such as ring or a random graph.
 Each deme is not totally isolated, since after a certain amount of time (generations or function evaluation) a set of individuals is exchanged between
-neighboring dems, a process known as migration.
+neighboring demes, a process known as migration.
 Obviously, the problem of setting parameter values is magnified by a factor of N, since it is not possible to assume that for
 a particular problem the best configuration is an homogeneous system where all demes share the same set of parameters.
 Moreover, the additional complexity of the Island Model incorporates additional degrees of freedom that must be tuned before
@@ -457,7 +457,7 @@ each of the three methods evaluated here.
 First, for the P-Peaks problem with 16 EvoWorkers.
 In this case, we can see a clear trend, the random Heterogeneous configuration is very similar with the best homogeneous configuration,
 depicted in Figure \ref{fig:PPeaks-w16}.
-This is a promising initial obervation, since the heterogeneous configuration did not require any parameter tuning, while the best homogeneous configuration
+This is a promising initial observation, since the heterogeneous configuration did not require any parameter tuning, while the best homogeneous configuration
 is chosen from a set of 200 runs.
 Moreover, we see that using an homogeneous configuration with random values achieves noticeably inferior performance.
 When the number of EvoWorkers is increased, shown in Figure \ref{fig:PPeaks-w120}, we see a similar trend,
@@ -623,7 +623,7 @@ Nevertheless, it is obvious that using a random heterogeneous parametrization ca
 %size, and a re-insertion queue to handle lost samples. Further work could be
 %focused on a hybrid approach, and also using heterogeneous computing resources. 
 
-\section{Acknowledgements}
+\section{Acknowledgments}
 
 Hidden for double-blind review. 
 
