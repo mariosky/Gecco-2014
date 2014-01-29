@@ -84,6 +84,8 @@ def evolve(sample_num, config):
     for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
 
+    sample_id = evospace_sample['sample_id']
+
 
     total_evals = len(pop)
     best_first   = None
@@ -156,7 +158,15 @@ def evolve(sample_num, config):
 
     startPutback =  time.time()
     if random.random() < config["RETURN_RATE"]:
-        put_sample(config, evospace_sample)
+        try:
+            put_sample(config, evospace_sample)
+        except:
+            return 0.0, \
+           [config["CHROMOSOME_LENGTH"],best, sample_num, round(time.time() - start, 2),
+            round(tGetSample,2) , round( tEvol,2), 0, total_evals, best_first,"EXCEPTION_PUT",
+            config["MUTPB"], config["CXPB"], config["SAMPLE_SIZE"],config["WORKER_GENERATIONS"],sample_id]
+
+
         was_returned= "RETURNED"
     else:
          was_returned= "LOST"
@@ -164,7 +174,8 @@ def evolve(sample_num, config):
 
     return best >= 1.0, \
            [config["CHROMOSOME_LENGTH"],best, sample_num, round(time.time() - start, 2),
-            round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned]
+            round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned,
+            config["MUTPB"], config["CXPB"], config["SAMPLE_SIZE"],config["WORKER_GENERATIONS"],sample_id]
 
 
 def work(params):

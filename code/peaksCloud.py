@@ -14,14 +14,14 @@ conf_out = open("conf/"+experiment_id+".yaml","w")
 yaml.dump(config, conf_out)
 conf_out.close()
 
-for i in range(27):
+for i in range(20):
     start = time.time()
-    init_job = cloud.call(random_ppeaks.initialize, config=config,  _type=config["WORKER_TYPE"], _env="deap")
+    init_job = cloud.call(ppeaks.initialize, config=config,  _type=config["WORKER_TYPE"], _env="deap")
     tInitialize = time.time()-start
     print i, tInitialize
     params = [(w, config) for w in range(config["NUMBER_OF_WORKERS"])]
 
-    jids = cloud.map(random_ppeaks.work, params, _type=config["WORKER_TYPE"], _depends_on= init_job )
+    jids = cloud.map(ppeaks.work, params, _type=config["WORKER_TYPE"], _depends_on= init_job )
     results_list = cloud.result(jids)
 
     tTotal = time.time()-start
