@@ -345,8 +345,8 @@ The goal of this paper is to evaluate RPSS as a parametrization approach for a P
 in particular a genetic algorithm (GA).
 As stated before, the goal is to determine if a random configuration for each of the $n$ EvoWorkers that collaborate on a given run
 can achieve competitive results compared to a conventional tuning approach.
-The parameters considered are: 1) crossover probability; 2) mutation probability; 3) tournament size (selection); 4) sample size;
-and 5) number of generations.
+The parameters considered are: 1) crossover probability; 2) mutation probability; 3) sample size;
+and 4) number of generations (executed locally in each EvoWorker).
 The valid ranges established for each parameter are summarized in Table \ref{tab:params}.
 
 \begin{table}[!t]
@@ -360,7 +360,6 @@ The valid ranges established for each parameter are summarized in Table \ref{tab
 \hline
 Crossover probability & \\
 Mutation probability & \\
-Tournament size & \\
 Sample Size & \\
 Generations & \\
 \hline
@@ -368,15 +367,13 @@ Generations & \\
 \end{table}
 
 To gauge the effectiveness of RPSS on a PEA, it is compared with three different parametrization strategies, similar to what is done in \cite{fuku1,fuku2}.
-First, the baseline or control method, is an ad-hoc-homogeneous-parametrization (AHP),
-where all workers share the same homogeneous parameters, set to previously hand-tuned values \cite{Evospace,Musart,FreeLunch,Fire}.
-Second, the best-homogeneous-parametrization (BHP), where 200 random parametrizations are generated,
-shared across all EvoWorkers, and the best one is chosen.
-Finally, the random-heterogeneous-parametrization (RHP), where the parameters of each worker are set independently at random at
-the beginning of each run.
-Note that Of all three methods, RHP is the only one that does not require any configuration or parameter tuning before a run.
-
-
+First, we consider the simplest approach of setting all of the EvoWorker parameters homogeneously.
+To do this, we generate 200 random parametrizations, based on the ranges established in Table \ref{tab:params}.
+We report the average results of these 200 runs, to characterized the random-homogeneous parametrization, we call this method Average-Homogeneous.
+From these runs, we select the best configuration, the one that achieved the best results,
+and then perform 20 independent runs on each problem, and measure average performance; this method is called Best-Homogeneous.
+Finally, we evaluate the random-heterogeneous-parametrization, where the parameters of each worker are set independently at random at
+the beginning of each run; we perform 20 independent runs of this method and report the average, calling it Average-Heterogeneous.
 
 
 \subsection{Benchmark}
@@ -421,7 +418,8 @@ Other GA specific details are summarized in Table \ref{tab:ga}.
 \centering
 \begin{tabular}{|l|c|c|}
 \hline
-\textbf{Feature} & \textbf{P-Peaks} & \textbf{Real-valued problems} \\
+\textbf{Feature} & \textbf{P-Peaks} & \textbf{Real-valued} \\
+& & \textbf{problems} \\
 \hline
 \hline
 Crossover type & & \\
@@ -435,26 +433,36 @@ Individuals in the Pool &  & \\
 
 \subsection{Experimental Set-up and Results}
 Experiments are carried out using a different number of EvoWorkers $N$ on each problem.
-The first group of runs are done with $N=$ EvoWorkers, and then with $N=$.
-In each case, and for each problem, 30 independent runs are carried out.
+The first group of runs are done with $N=16$ EvoWorkers, and then with $N=120$.
 Results are summarized by tracking how the best solution found so far varies with respect to the total
 number of samples taken from the EvoSpace pool of individuals.
-These results are presented in Figures \ref{}, where the average +/1 standard deviation of the 30 runs are plotted
-for each of the three methods evaluated here (AHP, BHP and RHP).
+These results are presented in Figures \ref{}, where the average performance for
+each of the three methods evaluated here.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=3.5in]{eps/PPeaks-w16.eps}
-\caption{ P-Peaks with 16 workers}
+\caption{Convergence plots for the P-Peaks with 16 EvoWorkers.}
 \label{fig:PPeaks-w16}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=3.5in]{eps/PPeaks-w120.eps}
-\caption{  P-Peaks with 120 workers}
+\caption{Convergence plots for the P-Peaks with 16 EvoWorkers.}
 \label{fig:PPeaks-w120}
 \end{figure}
+
+
+First, for the P-Peaks problem with 16 EvoWorkers.
+In this case, we can see a clear trend, the random Heterogeneous configuration is very similar with the best homogeneous configuration,
+depicted in Figure \ref{fig:PPeaks-w16}.
+This is a promising initial obervation, since the heterogeneous configuration did not require any parameter tuning, while the best homogeneous configuration
+is chosen from a set of 200 runs.
+Moreover, we see that using an homogeneous configuration with random values achieves noticeably inferior performance.
+When the number of EvoWorkers is increased, shown in Figure \ref{fig:PPeaks-w120}, we see a similar trend,
+however the differences among the algorithms are noticeably reduced.
+Nevertheless, it is obvious that using a random heterogeneous parametrization can be used as an off-the shelf approach on this problem.
 
 
 %As EvoSpace is only the population store, EvoWorkers must implement 
