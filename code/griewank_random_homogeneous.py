@@ -9,16 +9,16 @@ config = yaml.load(open("conf/conf.yaml"))
 experiment = "w%d-%d-p%d" % (config["NUMBER_OF_WORKERS"], config["RETURN_RATE"]*100,config["POPULATION_SIZE"])
 experiment_id = experiment + "-%d" % round(time.time(),0)
 
-datafile = open("data/"+experiment_id+".dat","a")
-conf_out = open("conf/"+experiment_id+".yaml","w")
+datafile = open("data/griewank"+experiment_id+".dat","a")
+conf_out = open("conf/griewank"+experiment_id+".yaml","w")
 yaml.dump(config, conf_out)
 conf_out.close()
 
 for i in range(200):
     config["MUTPB"] = random.random()
     config["CXPB"]  = random.random()
-    config["SAMPLE_SIZE"] = random.randint(12,24)
-    config["WORKER_GENERATIONS"] = random.randint(5, 30)
+    config["SAMPLE_SIZE"] = random.randint(5,20)
+    config["WORKER_GENERATIONS"] = random.randint(5,20)
 
     start = time.time()
     init_job = cloud.call(griewank.initialize, config=config,  _type=config["WORKER_TYPE"], _env="deap")

@@ -1,6 +1,9 @@
 # OS X
 .DS_Store
 
+#Data
+.dat
+
 #Python
 # Byte-compiled / optimized / DLL files
 __pycache__/

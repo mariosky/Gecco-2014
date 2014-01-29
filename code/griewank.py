@@ -89,7 +89,7 @@ def evolve(sample_num, config):
     fitnesses = map(toolbox.evaluate, pop)
     for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
-
+    sample_id = evospace_sample['sample_id']
 
     total_evals = len(pop)
     best_first   = None
@@ -170,7 +170,8 @@ def evolve(sample_num, config):
 
     return best == 0.0, \
            [config["CHROMOSOME_LENGTH"],best, sample_num, round(time.time() - start, 2),
-            round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned]
+            round(tGetSample,2) , round( tEvol,2), round(tPutBack, 2), total_evals, best_first,was_returned,
+             config["MUTPB"], config["CXPB"], config["SAMPLE_SIZE"],config["WORKER_GENERATIONS"],sample_id]
 
 
 def work(params):
