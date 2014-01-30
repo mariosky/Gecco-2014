@@ -128,6 +128,7 @@ def main(i):
 
         print "  Min %s" % min(fits)
         print "  Max %s" % max(fits)
+        print tools.selBest(pop,1)[0]
         #print "  Avg %s" % mean
         #print "  Std %s" % std
 
@@ -140,5 +141,5 @@ def main(i):
 
 
 if __name__ == "__main__":
-    for i in range(2):
+    for i in range(1):
         main(i)
