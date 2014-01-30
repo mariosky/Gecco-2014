@@ -18,7 +18,7 @@
 
 
 \begin{document} % Something about unreliable workers: assessing the effect, for instance - JJ
-\title{ Unreliable Heterogeneous Workers in a Pool-based Evolutionary Algorithm}
+\title{ Randomized Parameter Settings for Heterogeneous Workers in a Pool-Based Evolutionary Algorithm}
 \subtitle{TRACK: }
 
 \conferenceinfo{GECCO'14,} {July 12-16, 2014, Vancouver, BC, Canada.}
@@ -47,7 +47,8 @@
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-%Abstract is important and should go first. 
+%Abstract is important and should go first.
+Several pool-based Evolutionary Algorithms (EAs) have been proposed that asynchronously distribute the evolutionary process among heterogeneous devices, not only among controlled nodes but also in those outside the data center, in web browsers or cloud based virtual machines. This reach out approach allows researchers the use of low cost computational power not available otherwise, but on the other hand, have the challenge to manage heterogeneous and unreliable computing resources. In these algorithms the population is stored in a shared pool where distributed processes called Workers execute the actual evolutionary process. The performance of these algorithms depends in part on having proper parameter settings for the GA executed in each worker along with the overall configuration. Parameter settings may include: sample size, generations, mutation rate and crossover rate. In this paper we evaluate a strategy proposed by Gong and Fukunaga for the Island-Model which statically assigns random control parameter values to each worker. Experiments were conducted to assess the performance of this strategy on pool-based EAs using benchmark problems and the EvoSpace framework. The results suggest that this approach can yield results which are competitive to instances of the algorithm using Workers with control parameters tuned specifically for the benchmark. 
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -358,10 +359,10 @@ The valid ranges established for each parameter are summarized in Table \ref{tab
 \textbf{Parameter} & \textbf{Range} \\
 \hline
 \hline
-Crossover probability & \\
-Mutation probability & \\
-Sample Size & \\
-Generations & \\
+Crossover probability & [0,1] \\
+Mutation probability & [0,1] \\
+Sample Size & [12,24]\\
+Generations & [5,30]\\
 \hline
 \end{tabular}
 \end{table}
@@ -416,17 +417,16 @@ Other GA specific details are summarized in Table \ref{tab:ga}.
 \caption{GA configuration for each benchmark problem.}
 \label{tab:ga}
 \centering
-\begin{tabular}{|l|c|c|}
+\begin{tabular}{|l|c|}
 \hline
-\textbf{Feature} & \textbf{P-Peaks} & \textbf{Real-valued} \\
-& & \textbf{problems} \\
+\textbf{Feature} & \textbf{P-Peaks}  \\
 \hline
 \hline
-Crossover type & & \\
-Mutation type & & \\
-Survival & & \\
-Variable range & $\{0,1\}$ & \\
-Individuals in the Pool &  & \\
+Crossover type & Two Points  \\
+Mutation type & Flip Bit \\
+Survival & Tournament (size=4) \\
+Variable range & $\{0,1\}$  \\
+Individuals in the Pool & 300,1000  (16,120 workers) \\
 \hline
 \end{tabular}
 \end{table}
