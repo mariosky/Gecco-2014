@@ -379,8 +379,7 @@ the beginning of each run; we perform 20 independent runs of this method and rep
 
 \subsection{Benchmark}
 \label{ss:benchmark}
-The algorithms are evaluated using four common benchmarks.
-First, the P-Peaks generator of multimodal problems proposed by De Jong et al. \cite{Jong:PS97}.
+The algorithms are evaluated using the P-Peaks generator of multimodal problems proposed by De Jong et al. \cite{Jong:PS97}.
 A P-Peaks instance is created by generating a set of P random N-bit
 strings, which represent the location of the P peaks in the space. To
 evaluate an arbitrary bit string \begin{math} \mathbf{x} \end{math}
@@ -399,12 +398,11 @@ since evaluating every string is computationally hard; this is
 convenient since to evaluate these type of distributed evolutionary
 algorithms fitness computation has to be significant with respect to
 network latency (otherwise, it would always be faster to have a
-single-processor version). However
-according to Kennedy and Spears \cite{Kennedy:1998ch} the length of
+single-processor version).
+However, according to Kennedy and Spears \cite{Kennedy:1998ch} the length of
 the string being optimized has a greater effect in determining how
-easy or hard is the problem. In their experiments an instance having P
-= 200 peaks and N = 100 bits per string is considered to produce a
-considerably difficult problem.
+easy or hard is the problem. In their experiments an instance having $P = 200$ peaks
+and $N = 100$ bits per string is considered to produce a considerably difficult problem.
 
 Then, following \cite{fuku1}, three standard real-valued optimization problems are used,
 these are the Schwefel, Rastrigin, and Griewangk functions, with the number of dimensions set to
@@ -608,6 +606,16 @@ Nevertheless, it is obvious that using a random heterogeneous parametrization ca
 
 \section{Conclusions and Further Work}
 \label{sec:conclusions}
+This paper presents an evaluation of the RPSS parametrization approach on a pool-based EA developed over the EvoSpace system.
+The basic idea, which is quite simple, is to randomly set the parameter values of each EvoWorker, that connect to the central population pool
+and perform an independent evolutionary search on a sampled set of individuals.
+While PEAs developed over EvoSpace have been studied before with good initial results, they suffer from the fact that they have a large number of degrees-of-freedom,
+requiring extensive parameter tuning.
+However, using the RPPS appraoach, it seems that a PEA can be executed successfully  without any form of parameter tuning, achieving comparable results to
+standard homogeneous parametrizations.
+Future work will focus on exploring the limits of the approach using a more diverse set of benchmark problems, as well as other EA techniques,
+such as genetic programming or particle swarm optimization.
+
 
 %The re-insertion algorithm proposed for EvoSpace is a viable alternative
 %to deal with a starving population in pool based GAs, and unreliable EvoWorkers.
