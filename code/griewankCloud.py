@@ -9,12 +9,12 @@ config = yaml.load(open("conf/conf.yaml"))
 experiment = "w%d-%d-p%d" % (config["NUMBER_OF_WORKERS"], config["RETURN_RATE"]*100,config["POPULATION_SIZE"])
 experiment_id = experiment + "-%d" % round(time.time(),0)
 
-datafile = open("data/griewank"+experiment_id+".dat","a")
-conf_out = open("conf/griewank"+experiment_id+".yaml","w")
+datafile = open("data/griewank-homo-best-"+experiment_id+".dat","a")
+conf_out = open("conf/griewank-homo-best-"+experiment_id+".yaml","w")
 yaml.dump(config, conf_out)
 conf_out.close()
 
-for i in range(30):
+for i in range(20):
     start = time.time()
     init_job = cloud.call(griewank.initialize, config=config,  _type=config["WORKER_TYPE"], _env="deap")
     tInitialize = time.time()-start
