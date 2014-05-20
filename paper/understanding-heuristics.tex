@@ -1,0 +1,100 @@
+\documentclass{llncs}
+\usepackage{subfigure}
+\usepackage{amssymb,amsmath}
+\sloppy
+%
+\usepackage{makeidx}  % allows for indexgeneration
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage{amsmath,epsfig}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{url}
+
+
+\begin{document} % Something about unreliable workers: assessing the effect, for instance - JJ
+\title{ Randomized Parameter Settings for Heterogeneous Workers in a Pool-Based Evolutionary Algorithm}
+
+\maketitle              % typeset the title of the contribution
+
+\keywords{Distributed evolutionary algorithms}
+
+Thanks in part  to evolutionary computation (EC) research, scientists and engineers from many fields now understand the remarkable power of
+the natural search process described by the biological theory of Neo-Darwinian evolution \cite{holland}. 
+Inspired in biological evolution, EC researchers have developed a variety of search and optimization algorithms \cite{eiben}.
+%Empty statement, maybe delete.
+
+While EAs are inspired by evolution, they mostly follow an abstract model of the natural process.
+For instance, one aspect that is omitted from most EAs is an open-ended search process,
+in practice EAs are used to solve problems with well defined objectives, while natural evolution is an adaptive process without an a priori goal or purpose.
+Such open-ended EAs have been developed, mostly for artistic design \cite{Musart}, interactive evolution \cite{ie1} and artificial life systems \cite{avida}.
+Other interesting features of biological evolution, is that it is an intrinsically parallel, distributed and asynchronous process,
+undoubtedly important features that have allowed evolution to produce impressive results throughout nature.
+However, some of these features are not trivially included into standard EAs,
+which are mostly coded as sequential and synchronous algorithms \cite{eiben}.
+
+For instance, a large body of work exists in EA parallelization, using multiple CPU cores, multiple nodes and GPUs.
+However, distributed and asynchronous EAs have started to become common only recently.
+In particular, recent trends in information technology have opened new lines of future development for EC research.
+Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
+These resources are easily accessible through popular Internet technologies, such as cloud computing, 
+peer-to-peer (P2P), and web environments.
+
+Moreover, these technologies are intended for the development of parallel, distributed and asynchronous systems,
+such that an EA developed on top of them could easily reap the benefits of these features.
+As stated before, several EAs have been proposed that distribute  the evolutionary process among heterogeneous devices, not only among controlled
+nodes within an in-house cluster or grid, but also to others outside the data center, in users' web browsers, smart phones or external cloud based virtual machines.
+This reach out approach allows researchers to use low cost computational 
+power that would not be available otherwise, but on the other hand, have the 
+challenge to manage heterogeneous unreliable computing resources. 
+In particular, we are interested in systems that follow a pool-based approach, where the search process is conducted
+by a collection, of possibly heterogeneous, collaborating processes using a shared repository or population pool.
+We will refer to such algorithms as Pool-based EAs or PEAs, and highlight the fact that such systems are
+intrinsically parallel, distributed and asynchronous.
+
+Despite promising results, PEAs present several notable challenges. From a technological perspective, for example, lost 
+connections, low bandwidth, abandoned work, security and privacy are all important issues that must be addressed. 
+However, here we focus on a common issue with most EAs, that is only amplified in a PEA, a problem that can be referred to as parametrization.
+In general, among machine learning methodologies, EAs are highly criticized by the large number of parameters they posses,
+that for real world problems need to be tuned empirically or require additional heuristic processes to be included into the search to
+adjust the parameters automatically \cite{ss}.
+In the case of a PEAs, this issue is magnified since the underlying system architecture adds several degrees of freedom to the search process.
+
+This work studies a recently proposed pool-based system called EvoSpace, a framework to develop PEAs using 
+a heterogeneous collection of possibly unreliable resources.
+EvoSpace is based on Linda's tuple space coordination model, where each node asynchronously
+pulls its work from a central shared memory  \cite{Evospace,Musart,FreeLunch,Fire}. The core elements of EvoSpace are a central 
+repository for the evolving population and remote clients here called EvoWorkers
+which pull random samples of the population to perform on them the basic evolutionary
+processes (selection, variation and survival), once the work is done, the
+modified sample is pushed back to the central population.
+Despite some promising initial results \cite{Evospace,Musart,FreeLunch,Fire}, research devoted to EvoSpace has not addressed the parametrization issue mentioned above.
+In the study presented here, a recent approach called Randomized Parameter Setting Strategy (RPSS) \cite{fuku1,fuku2} is applied to EvoSpace and tested on several
+benchmark problems.
+The idea behind RPSS is that in a distributed EA, algorithm parametrization may be completely skipped for a successful search,
+with research showing that when the number of distributed process is large enough, algorithm parameters can be set randomly and still achieve
+good overall results.
+However, work on RPSS has only focused on the well-known Island Model for EAs, a distributed but synchronous system.
+% En el paper le llaman Distributed Island Model, para diferenciarla por ejemplo de Parallel Island Model en una maquina multiprocesador -Mario
+% Pero, creo que lo distribuido no cambia el modelo, solo la implementacion, en el otro articulo si se refieren a el como Island Model ... tal vez si le ponemos (distibuted) Island Model ?
+On the other hand, the goal of this work is to evaluate RPSS on a complete PEA implemented through EvoSpace.
+
+
+
+\section{Acknowledgments}
+
+This work has been supported in part by project ANYSELF
+(TIN2011-28627-C04-02). 
+
+%
+% ---- Bibliography ----
+% There are problems with the bibliography codification.
+\bibliographystyle{abbrv}
+\bibliography{biblio}
+
+\end{document}
