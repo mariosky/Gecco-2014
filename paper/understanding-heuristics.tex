@@ -18,16 +18,12 @@
 
 
 \begin{document} % Something about unreliable workers: assessing the effect, for instance - JJ
-\title{ Randomized Parameter Settings for Heterogeneous Workers in a Pool-Based Evolutionary Algorithm}
+\title{There's method in my serendipity:  Using Random Parameters in
+  Distributed Evolutionary Algorithms}
 
 \maketitle              % typeset the title of the contribution
 
 \keywords{Distributed evolutionary algorithms, parameter setting}
-
-Thanks in part  to evolutionary computation (EC) research, scientists and engineers from many fields now understand the remarkable power of
-the natural search process described by the biological theory of Neo-Darwinian evolution \cite{holland}. 
-Inspired in biological evolution, EC researchers have developed a variety of search and optimization algorithms \cite{eiben}.
-%Empty statement, maybe delete.
 
 While EAs are inspired by evolution, they mostly follow an abstract model of the natural process.
 For instance, one aspect that is omitted from most EAs is an open-ended search process,
@@ -36,17 +32,21 @@ Such open-ended EAs have been developed, mostly for artistic design \cite{Musart
 Other interesting features of biological evolution, is that it is an intrinsically parallel, distributed and asynchronous process,
 undoubtedly important features that have allowed evolution to produce impressive results throughout nature.
 However, some of these features are not trivially included into standard EAs,
-which are mostly coded as sequential and synchronous algorithms \cite{eiben}.
+which are mostly coded as sequential and synchronous algorithms
+\cite{eiben}.
+% This intro is rather convoluted, and does not really introduce the
+% topic. Any new idea? - JJ 
 
 For instance, a large body of work exists in EA parallelization, using multiple CPU cores, multiple nodes and GPUs.
-However, distributed and asynchronous EAs have started to become common only recently.
+However, distributed and asynchronous EAs have started to become
+common only recently. %cite - JJ
 In particular, recent trends in information technology have opened new lines of future development for EC research.
 Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
 These resources are easily accessible through popular Internet technologies, such as cloud computing, 
-peer-to-peer (P2P), and web environments.
+peer-to-peer (P2P), and web environments. % references - JJ
 
-Moreover, these technologies are intended for the development of parallel, distributed and asynchronous systems,
-such that an EA developed on top of them could easily reap the benefits of these features.
+These technologies are intended for the development of parallel, distributed and asynchronous systems,
+so that an EA developed on top of them could easily reap the benefits of these features.
 As stated before, several EAs have been proposed that distribute  the evolutionary process among heterogeneous devices, not only among controlled
 nodes within an in-house cluster or grid, but also to others outside the data center, in users' web browsers, smart phones or external cloud based virtual machines.
 This reach out approach allows researchers to use low cost computational 
@@ -82,7 +82,17 @@ good overall results.
 However, work on RPSS has only focused on the well-known Island Model for EAs, a distributed but synchronous system.
 % En el paper le llaman Distributed Island Model, para diferenciarla por ejemplo de Parallel Island Model en una maquina multiprocesador -Mario
 % Pero, creo que lo distribuido no cambia el modelo, solo la implementacion, en el otro articulo si se refieren a el como Island Model ... tal vez si le ponemos (distibuted) Island Model ?
-On the other hand, the goal of this work is to evaluate RPSS on a complete PEA implemented through EvoSpace.
+On the other hand, the goal of this line of work is to evaluate RPSS on a
+complete PEA implemented through EvoSpace.
+
+Using randomized parameter settings falls withing the area of
+self-parametrization of (distributed) evolutionary algorithms. So far
+we have proved that a randomized parameter evolutionary algorithm can
+obtain decent results, at least comparable to the best homogeneized
+non-random setting. However, a experimental or heuristic setting would
+probably yield better results. Is there a way to adapt parameters to
+the particular characteristics of each computing node? That is an
+issue we would like to raise, and discuss, in this workshop. 
 
 
 
