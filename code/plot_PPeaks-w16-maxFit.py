@@ -24,8 +24,7 @@ all_runs.sort()
 avg_homogeneous = []
 for key, group in itertools.groupby(all_runs, key=operator.itemgetter(0)):
     rows = [float(row[3]) for row in group] #row[3] = fitness
-    print key, sum(rows)/len(rows), std(rows), len(rows)
-    avg_homogeneous.append((key, sum(rows)/len(rows),std(rows)/sqrt( len(rows))))
+    avg_homogeneous.append((key, max(rows),std(rows)/sqrt( len(rows))))
 avg_homogeneous = array(avg_homogeneous)
 
 
@@ -39,8 +38,7 @@ _runs.sort()
 avg_heterogenous = []
 for key, group in itertools.groupby(_runs, key=operator.itemgetter(0)):
     rows = [float(row[3]) for row in group] #row[3] = fitness
-    print key, sum(rows)/len(rows), std(rows), len(rows)
-    avg_heterogenous.append((key, sum(rows)/len(rows) , std(rows)/sqrt(len(rows)) ))
+    avg_heterogenous.append((key, max(rows) , std(rows)/sqrt(len(rows)) ))
 
 avg_heterogenous = array(avg_heterogenous)
 
@@ -55,8 +53,7 @@ _runs_best.sort()
 avg_heterogenous_best = []
 for key, group in itertools.groupby(_runs_best, key=operator.itemgetter(0)):
     rows = [float(row[3]) for row in group] #row[3] = fitness
-    print key, sum(rows)/len(rows), std(rows), len(rows)
-    avg_heterogenous_best.append((key, sum(rows)/len(rows) , std(rows)/sqrt(len(rows)) ))
+    avg_heterogenous_best.append((key, max(rows) , std(rows)/sqrt(len(rows)) ))
 
 avg_heterogenous_best = array(avg_heterogenous_best)
 
@@ -86,7 +83,7 @@ ax1.set_title('16 Workers, P-Peaks')
 ax1.set_xlabel('Sample number')
 ax1.set_ylabel('Fitness')
 
-plt.savefig('plots/PPeaks-w16.eps')
+plt.savefig('plots/PPeaks-w16-MAX.eps')
 
 homogeneous.close()
 heterogeneous.close()
