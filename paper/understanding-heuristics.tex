@@ -21,6 +21,9 @@
 \title{There's method in my serendipity:  Using Random Parameters in
   Distributed Evolutionary Algorithms}
 
+% Faltan los autores, ¿no? En este workshop sí se pueden presentar -
+% JJ 
+
 \maketitle              % typeset the title of the contribution
 
 \keywords{Distributed evolutionary algorithms, parameter setting}
@@ -36,7 +39,18 @@
 % "All too often heuristics and meta-heuristics for combinatorial optimisation problems require significant parameter tuning to work most effectively. Often this tuning is performed without any a priori knowledge as to how good values of parameters might depend on features of the problem. This lack of knowledge can lead to lot of computational effort and also has the danger of being limited to only problem instances that are similar to those that have been seen before."    
 
 % We could start the Intro from:
-Several Evolutionary Algorithms (EA) have been proposed that distribute the evolutionary process among heterogeneous devices, from controlled nodes in a in-house cluster or grid to those outside the data center, in users’ web browsers and smart phones or external cloud based virtual machines. This reach out approach allows researchers the use of low cost computational power that would not be available otherwise, but on the other hand, have the challenge to manage heterogeneous unreliable computing resources. Lost connections, low bandwidth communications, abandoned work, security and privacy issues are all common in these settings.
+\section{Introduction} % Bueno, no hay más secciones, pero si no queda
+                       % muy pegado arriba - JJ
+Several Evolutionary Algorithms (EA) that distribute the evolutionary
+process among heterogeneous devices have been proposed, from
+controlled nodes in a in-house cluster or grid to those outside the
+data center, in users’ web browsers and smart phones or external cloud
+based virtual machines. This reach out approach allows researchers the
+use of low cost computational power that would not be available
+otherwise, but on the other hand, have the challenge to manage
+heterogeneous unreliable computing resources. Lost connections, low
+bandwidth communications, abandoned work, security and privacy issues
+are all common in these settings. 
 
 %For instance, a large body of work exists in EA parallelization, using multiple CPU cores, multiple nodes and GPUs.
 %However, distributed and asynchronous EAs have started to become common only recently \cite{sofea:naco}. %cite - JJ In particular, recent trends in information technology have opened new lines of future development for EC research. Today, computing resources computing power range from personal computers and smart-devices to massive data centers. These resources are easily accessible through popular Internet technologies, such as cloud computing \cite{varia2008cloud} , peer-to-peer (P2P) , and web environments. % references - JJ
@@ -48,18 +62,23 @@ Several Evolutionary Algorithms (EA) have been proposed that distribute the evol
 %power that would not be available otherwise, but on the other hand, have the 
 %challenge to manage heterogeneous unreliable computing resources. 
 
-In particular, we are interested in EAs systems that follow a pool-based approach, where the search process is conducted by a collection, of possibly heterogeneous, collaborating processes using a shared repository or population pool. We will refer to such algorithms as Pool-based EAs or PEAs, and highlight the fact that such systems are intrinsically parallel, distributed and asynchronous.
+In particular, we are interested in EAs systems that follow a
+pool-based approach, where the search process is conducted by a
+collection of possibly heterogeneous processes that collaborate using
+a shared repository or population pool. We will refer to such
+algorithms as Pool-based EAs or PEAs, and highlight the fact that such
+systems are intrinsically parallel, distributed and asynchronous. 
 
 %Despite promising results, PEAs present several notable challenges. From a technological perspective, for example, lost 
 %connections, low bandwidth, abandoned work, security and privacy are all important issues that must be addressed. 
 %However, 
 Here we focus on a common issue with most EAs, that is only amplified in a PEA, a problem that can be referred to as parametrization.
-In general, among machine learning methodologies, EAs are highly criticized by the large number of parameters they posses,
+In general, among machine learning methodologies, EAs are highly criticized by the large number of parameters they possess,
 that for real world problems need to be tuned empirically or require additional heuristic processes to be included into the search to
 adjust the parameters automatically \cite{ss}.
 In the case of a PEAs, this issue is magnified since the underlying system architecture adds several degrees of freedom to the search process.
 
-This work studies a recently proposed pool-based system called EvoSpace, a framework to develop PEAs using 
+Our  work has been focused on a recently proposed pool-based system called EvoSpace, a framework to develop PEAs using 
 a heterogeneous collection of possibly unreliable resources.
 EvoSpace is based on Linda's tuple space coordination model, where each node asynchronously
 pulls its work from a central shared memory  \cite{Evospace,Musart,FreeLunch,Fire}. The core elements of EvoSpace are a central 
@@ -89,8 +108,7 @@ the particular characteristics of each computing node? That is an
 issue we would like to raise, and discuss, in this workshop. 
 
 
-
-\section{Acknowledgments}
+\section{Acknowledgments*}
 
 This work has been supported in part by project ANYSELF
 (TIN2011-28627-C04-02). 
