@@ -25,41 +25,35 @@
 
 \keywords{Distributed evolutionary algorithms, parameter setting}
 
-While EAs are inspired by evolution, they mostly follow an abstract model of the natural process.
-For instance, one aspect that is omitted from most EAs is an open-ended search process,
-in practice EAs are used to solve problems with well defined objectives, while natural evolution is an adaptive process without an a priori goal or purpose.
-Such open-ended EAs have been developed, mostly for artistic design \cite{Musart}, interactive evolution \cite{ie1} and artificial life systems \cite{avida}.
-Other interesting features of biological evolution, is that it is an intrinsically parallel, distributed and asynchronous process,
-undoubtedly important features that have allowed evolution to produce impressive results throughout nature.
-However, some of these features are not trivially included into standard EAs,
-which are mostly coded as sequential and synchronous algorithms
-\cite{eiben}.
+% While EAs are inspired by evolution, they mostly follow an abstract model of the natural process.
+% For instance, one aspect that is omitted from most EAs is an open-ended search process, in practice EAs are used to solve problems with well defined objectives, while natural evolution is an adaptive process without an a priori goal or purpose. Such open-ended EAs have been developed, mostly for artistic design \cite{Musart}, interactive evolution \cite{ie1} and artificial life systems \cite{avida}. Other interesting features of biological evolution, is that it is an intrinsically parallel, distributed and asynchronous process, undoubtedly important features that have allowed evolution to produce impressive results throughout nature. However, some of these features are not trivially included into standard EAs, which are mostly coded as sequential and synchronous algorithms \cite{eiben}.
+
 % This intro is rather convoluted, and does not really introduce the
 % topic. Any new idea? - JJ 
 
-For instance, a large body of work exists in EA parallelization, using multiple CPU cores, multiple nodes and GPUs.
-However, distributed and asynchronous EAs have started to become
-common only recently. %cite - JJ
-In particular, recent trends in information technology have opened new lines of future development for EC research.
-Today, computing resources computing power range from personal computers and smart-devices to massive data centers.
-These resources are easily accessible through popular Internet technologies, such as cloud computing, 
-peer-to-peer (P2P), and web environments. % references - JJ
+% Why not start with a problem statement about parameter tuning in distributed and asynchronous EAs?, borrowing from the workshop description: 
 
-These technologies are intended for the development of parallel, distributed and asynchronous systems,
-so that an EA developed on top of them could easily reap the benefits of these features.
-As stated before, several EAs have been proposed that distribute  the evolutionary process among heterogeneous devices, not only among controlled
-nodes within an in-house cluster or grid, but also to others outside the data center, in users' web browsers, smart phones or external cloud based virtual machines.
-This reach out approach allows researchers to use low cost computational 
-power that would not be available otherwise, but on the other hand, have the 
-challenge to manage heterogeneous unreliable computing resources. 
-In particular, we are interested in systems that follow a pool-based approach, where the search process is conducted
-by a collection, of possibly heterogeneous, collaborating processes using a shared repository or population pool.
-We will refer to such algorithms as Pool-based EAs or PEAs, and highlight the fact that such systems are
-intrinsically parallel, distributed and asynchronous.
+% "All too often heuristics and meta-heuristics for combinatorial optimisation problems require significant parameter tuning to work most effectively. Often this tuning is performed without any a priori knowledge as to how good values of parameters might depend on features of the problem. This lack of knowledge can lead to lot of computational effort and also has the danger of being limited to only problem instances that are similar to those that have been seen before."    
 
-Despite promising results, PEAs present several notable challenges. From a technological perspective, for example, lost 
-connections, low bandwidth, abandoned work, security and privacy are all important issues that must be addressed. 
-However, here we focus on a common issue with most EAs, that is only amplified in a PEA, a problem that can be referred to as parametrization.
+% We could start the Intro from:
+Several Evolutionary Algorithms (EA) have been proposed that distribute the evolutionary process among heterogeneous devices, from controlled nodes in a in-house cluster or grid to those outside the data center, in users’ web browsers and smart phones or external cloud based virtual machines. This reach out approach allows researchers the use of low cost computational power that would not be available otherwise, but on the other hand, have the challenge to manage heterogeneous unreliable computing resources. Lost connections, low bandwidth communications, abandoned work, security and privacy issues are all common in these settings.
+
+%For instance, a large body of work exists in EA parallelization, using multiple CPU cores, multiple nodes and GPUs.
+%However, distributed and asynchronous EAs have started to become common only recently \cite{sofea:naco}. %cite - JJ In particular, recent trends in information technology have opened new lines of future development for EC research. Today, computing resources computing power range from personal computers and smart-devices to massive data centers. These resources are easily accessible through popular Internet technologies, such as cloud computing \cite{varia2008cloud} , peer-to-peer (P2P) , and web environments. % references - JJ
+
+%These technologies are intended for the development of parallel, distributed and asynchronous systems, so that an EA developed on top of them could easily reap the benefits of these features.
+%As stated before, several EAs have been proposed that distribute  the evolutionary process among heterogeneous devices, not only among controlled
+%nodes within an in-house cluster or grid, but also to others outside the data center, in users' web browsers, smart phones or external cloud based virtual machines.
+%This reach out approach allows researchers to use low cost computational 
+%power that would not be available otherwise, but on the other hand, have the 
+%challenge to manage heterogeneous unreliable computing resources. 
+
+In particular, we are interested in EAs systems that follow a pool-based approach, where the search process is conducted by a collection, of possibly heterogeneous, collaborating processes using a shared repository or population pool. We will refer to such algorithms as Pool-based EAs or PEAs, and highlight the fact that such systems are intrinsically parallel, distributed and asynchronous.
+
+%Despite promising results, PEAs present several notable challenges. From a technological perspective, for example, lost 
+%connections, low bandwidth, abandoned work, security and privacy are all important issues that must be addressed. 
+%However, 
+Here we focus on a common issue with most EAs, that is only amplified in a PEA, a problem that can be referred to as parametrization.
 In general, among machine learning methodologies, EAs are highly criticized by the large number of parameters they posses,
 that for real world problems need to be tuned empirically or require additional heuristic processes to be included into the search to
 adjust the parameters automatically \cite{ss}.
@@ -85,10 +79,10 @@ However, work on RPSS has only focused on the well-known Island Model for EAs, a
 On the other hand, the goal of this line of work is to evaluate RPSS on a
 complete PEA implemented through EvoSpace.
 
-Using randomized parameter settings falls withing the area of
+Using randomized parameter settings falls within the area of
 self-parametrization of (distributed) evolutionary algorithms. So far
 we have proved that a randomized parameter evolutionary algorithm can
-obtain decent results, at least comparable to the best homogeneized
+obtain decent results, at least comparable to the best homogenized
 non-random setting. However, a experimental or heuristic setting would
 probably yield better results. Is there a way to adapt parameters to
 the particular characteristics of each computing node? That is an
