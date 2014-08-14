@@ -38,7 +38,7 @@ def getToolBox(config):
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
     toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
-    toolbox.register("mate", tools.cxTwoPoints)
+    toolbox.register("mate", tools.cxTwoPoint)
     toolbox.register("select", tools.selTournament, tournsize=3)
     toolbox.register("evaluate", evalOneMax)
     return toolbox
@@ -196,10 +196,10 @@ def work(params):
 
 
 if __name__ == '__main__':
-    start = time.time()
-    initialize(config)
 
-    #print "Initialized",time.time()-start
+    initialize(config)
+    start = time.time()
+    print "Initialized",time.time()-start
     result = work((1,config))
     #for r in result:
     #    print r
