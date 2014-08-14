@@ -11,7 +11,7 @@ import time, yaml
 
 config = yaml.load(open("conf/conf.yaml"))
 
-experiment = "w%d-%s-p%d" % (config["NUMBER_OF_WORKERS"],"LocalPool",config["POPULATION_SIZE"])
+experiment = "w%d-%d-p%d" % (config["NUMBER_OF_WORKERS"],config["SAMPLE_SIZE"],config["POPULATION_SIZE"])
 experiment_id = experiment + "-%d" % round(time.time(),0)
 
 datafile = open("data/one_max-"+experiment_id+".dat","a")
@@ -24,7 +24,7 @@ for i in range(20):
     one_max.initialize(config)
     tInitialize = time.time()-start
     print i, tInitialize
-    p = Pool(4)
+    p = Pool(config["NUMBER_OF_WORKERS"])
     params = [(w, config) for w in range(config["NUMBER_OF_WORKERS"])]
     start = time.time()
     results = p.map(one_max.work, params)

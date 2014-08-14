@@ -3,7 +3,7 @@ __author__ = 'mariosky'
 
 import random
 import time
-import yaml
+
 
 
 from deap import base
@@ -11,17 +11,6 @@ from deap import creator
 from deap import tools
 
 import jsonrpclib
-
-config = yaml.load(open("conf/conf.yaml"))
-
-experiment = "w%d-%d-p%d" % (config["NUMBER_OF_WORKERS"], config["RETURN_RATE"]*100,config["POPULATION_SIZE"])
-experiment_id = experiment + "-%d" % round(time.time(),0)
-
-
-datafile = open("data/one_max-"+experiment_id+".dat","a")
-conf_out = open("conf/one_max-"+experiment_id+".yaml","w")
-yaml.dump(config, conf_out)
-conf_out.close()
 
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
