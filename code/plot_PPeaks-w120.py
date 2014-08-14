@@ -64,9 +64,9 @@ fig = figure()
 ax1 = fig.add_subplot(111)
 
 max_sample = 1500
-plt.plot(avg_homogeneous[:max_sample,0], avg_homogeneous[:max_sample,1],'b',linewidth = 1)
-plt.plot(avg_heterogenous[:max_sample,0], avg_heterogenous[:max_sample,1],'r',linewidth = 1)
-plt.plot(avg_heterogenous_best[:max_sample,0], avg_heterogenous_best[:max_sample,1],'g',linewidth = 1)
+plt.plot(avg_homogeneous[:max_sample,0], avg_homogeneous[:max_sample,1],'b--',linewidth = 1)
+plt.plot(avg_heterogenous[:max_sample,0], avg_heterogenous[:max_sample,1],'r:',linewidth = 1)
+plt.plot(avg_heterogenous_best[:max_sample,0], avg_heterogenous_best[:max_sample,1],'g-',linewidth = 1)
 
 #plt.errorbar( avg_homogeneous[:400,0],  avg_homogeneous[:400,1],  yerr=avg_homogeneous[:400,2], fmt='b-',linewidth = 1)
 #plt.errorbar(avg_heterogenous[:400,0], avg_heterogenous[:400,1], yerr=avg_heterogenous[:400,2], fmt='r-',linewidth = 1)
@@ -84,7 +84,7 @@ ax1.set_axisbelow(True)
 ax1.set_title('120 Workers, P-Peaks')
 ax1.set_xlabel('Sample number')
 ax1.set_ylabel('Fitness')
-
+ax1.set_ylim([0,1])
 plt.savefig('plots/PPeaks-w120.eps')
 #plt.show()
 
