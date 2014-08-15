@@ -5,7 +5,8 @@ NUMBER_OF_WORKERS: 1
 SAMPLE_SIZE: 64
 
 POPULATION_SIZE: 200
-SERVER: http://polar-chamber-2356.herokuapp.com/evospace
+#SERVER: http://polar-chamber-2356.herokuapp.com/evospace
+SERVER: http://127.0.0.1:5000/evospace
 
 WORKER_TYPE: c1
 
