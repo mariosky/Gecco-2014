@@ -5,7 +5,7 @@ import itertools, operator
 import os
 
 
-w1_file = open("data/one_max-w1-64-p200-1408042624.dat")
+w1_file = open("data/one_max-w2-24-p64-1408138731.dat")
 w3_file = open("data/one_max-w3-64-p200-1408042361.dat")
 w4_file = open("data/one_max-w4-64-p200-1408042096.dat")
 w6_file = open("data/one_max-w6-32-p200-1408041864.dat")

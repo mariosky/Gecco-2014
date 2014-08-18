@@ -179,18 +179,11 @@ def work(params):
             gen_data = evolve(sample_num, config)
             if gen_data[0]:
                 server.found_it(None)
+                print "FOUND"
             results.append([worker_id] + gen_data[1])
-
+            #print [worker_id] + gen_data[1]
     return results
 
 
 if __name__ == '__main__':
-    import deap
-    print deap.__version__
-    initialize(config)
-    start = time.time()
-    print "Initialized",time.time()-start
-    result = work((1,config))
-    #for r in result:
-    #    print r
-    print "Total:", time.time()-start
+ 

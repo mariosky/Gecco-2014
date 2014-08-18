@@ -19,7 +19,10 @@ conf_out = open("conf/one_max-"+experiment_id+".yaml","w")
 yaml.dump(config, conf_out)
 conf_out.close()
 
-for i in range(20):
+for i in range(30):
+    print '############################'
+    print '############################'
+
     start = time.time()
     one_max.initialize(config)
     tInitialize = time.time()-start
