@@ -26,6 +26,21 @@ from deap import base
 from deap import creator
 from deap import tools
 
+
+import yaml
+
+
+config = yaml.load(open("conf/conf_island.yaml"))
+
+experiment = "demes-%d-p%d" % (config["NUMBER_OF_DEMES"], config["POPULATION_SIZE"])
+experiment_id = experiment + "-%d" % round(time.time(),0)
+
+conf_out = open("conf/one_max_island-"+experiment_id+".yaml","w")
+yaml.dump(config, conf_out)
+conf_out.close()
+
+
+
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", array.array, typecode='b', fitness=creator.FitnessMax)
 
@@ -79,17 +94,17 @@ toolbox.register("mate", tools.cxTwoPoint)
 toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
-def main(procid, pipein, pipeout, sync, seed=None):
-    random.seed(seed)
+def main(procid, pipein, pipeout, sync, run_num, config,vseed=None):
+    #random.seed(seed)
     toolbox.register("migrate", migPipe, k=5, pipein=pipein, pipeout=pipeout,
         selection=tools.selBest, replacement=random.sample)
 
-    MU = 300
-    NGEN = 40
+    MU = config["POPULATION_SIZE"]
+    NGEN = 500
     CXPB = 0.5
     MUTPB = 0.2
     MIG_RATE = 5
-    
+
     deme = toolbox.population(n=MU)
     hof = tools.HallOfFame(1)
     stats = tools.Statistics(lambda ind: ind.fitness.values)
@@ -106,16 +121,17 @@ def main(procid, pipein, pipeout, sync, seed=None):
     record = stats.compile(deme)
     logbook.record(gen=0, deme=procid, evals=len(deme), **record)
     hof.update(deme)
-    
-    if procid == 0:
-        # Synchronization needed to log header on top and only once
-        print(logbook.stream)
-        sync.set()
-    else:
-        logbook.log_header = False  # Never output the header
-        sync.wait()
-        print(logbook.stream)
-    start = time.time()
+
+    # if procid == 0:
+    #     # Synchronization needed to log header on top and only once
+    #     print run_num, logbook.stream
+    #     sync.set()
+    # else:
+    #     logbook.log_header = False  # Never output the header
+    #     print run_num, logbook.stream
+    #     sync.wait()
+
+
     for gen in range(1, NGEN):
         deme = toolbox.select(deme, len(deme))
         deme = algorithms.varAnd(deme, toolbox, cxpb=CXPB, mutpb=MUTPB)
@@ -127,32 +143,53 @@ def main(procid, pipein, pipeout, sync, seed=None):
         hof.update(deme)
         record = stats.compile(deme)
         logbook.record(gen=gen, deme=procid, evals=len(deme), **record)
-        print(logbook.stream)
+
+        r = "%d,%d,%d,%d,%d" % (run_num,procid, gen,  len(deme), record['max'])
+        #print r
+
         if record['max']>=128:
-            print "Total:", time.time()-start
+            print run_num, "FOUND"
             return
 
             
         if gen % MIG_RATE == 0 and gen > 0:
             toolbox.migrate(deme)
 
-if __name__ == "__main__":
-    random.seed(64)
-    
-    NBR_DEMES = 3
-    
+
+
+def run(run_num, config):
+    #random.seed(64)
+    NBR_DEMES = config["NUMBER_OF_DEMES"]
+
     pipes = [Pipe(False) for _ in range(NBR_DEMES)]
     pipes_in = deque(p[0] for p in pipes)
     pipes_out = deque(p[1] for p in pipes)
     pipes_in.rotate(1)
     pipes_out.rotate(-1)
-    
+
     e = Event()
-    
-    processes = [Process(target=main, args=(i, ipipe, opipe, e, random.random())) for i, (ipipe, opipe) in enumerate(zip(pipes_in, pipes_out))]
-    
+
+    processes = [Process(target=main, args=(i, ipipe, opipe, e,run_num,config, random.random())) for i, (ipipe, opipe) in enumerate(zip(pipes_in, pipes_out))]
+
+    start = time.time()
     for proc in processes:
         proc.start()
-    
+
+    while len(processes):
+        time.sleep(0.02)
+        for pro in processes:
+            if pro.is_alive() is not True:
+                processes.remove(pro)
+                for p in processes:
+                    p.terminate()    # Remove completed task from list
+                break
+    print "Total:%f" % (time.time()-start)
+
     for proc in processes:
         proc.join()
+
+if __name__ == "__main__":
+    for i in range(30):
+        run(i, config)
+
+
