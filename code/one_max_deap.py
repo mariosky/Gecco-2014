@@ -42,8 +42,8 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 def main():
     #random.seed(64)
     
-    pop = toolbox.population(n=300)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 50
+    pop = toolbox.population(n=128)
+    CXPB, MUTPB, NGEN = 0.5, 0.2, 200
     
     print("Start of evolution")
     

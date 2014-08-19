@@ -5,11 +5,10 @@ __author__ = 'mariosky'
 from pylab import *
 
 
-
-w1_file = open("data/one_max-w1-64-p200-1408042624.dat")
-w3_file = open("data/one_max-w3-64-p200-1408042361.dat")
-w4_file = open("data/one_max-w4-64-p200-1408042096.dat")
-w6_file = open("data/one_max-w6-32-p200-1408041864.dat")
+w1_file = open("data/one_max-w2-24-p64.dat")
+w3_file = open("data/one_max-w3-18-p64.dat")
+w4_file = open("data/one_max-w4-12-p64.dat")
+w6_file = open("data/one_max-w6-8-p52.dat")
 
 
 
@@ -34,7 +33,7 @@ ax1.yaxis.grid(True, linestyle='-', which='major', color='lightgrey',
 
 # Hide these grid behind plot objects
 ax1.set_axisbelow(True)
-ax1.set_title('Time (in seconds) to solution. 128 bits)')
+ax1.set_title('Time (in seconds) to solution. 128 bits')
 ax1.set_xlabel('Number of workers')
 ax1.set_ylabel('Time in seconds')
 

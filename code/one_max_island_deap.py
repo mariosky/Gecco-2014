@@ -145,10 +145,10 @@ def main(procid, pipein, pipeout, sync, run_num, config,vseed=None):
         logbook.record(gen=gen, deme=procid, evals=len(deme), **record)
 
         r = "%d,%d,%d,%d,%d" % (run_num,procid, gen,  len(deme), record['max'])
-        #print r
+        print r
 
         if record['max']>=128:
-            print run_num, "FOUND"
+            #print run_num, "FOUND"
             return
 
             
