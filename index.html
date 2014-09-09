@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>A methodology to develop Service Oriented EAs</title>
+	<title>There’s method in my serendipity: Using
+Random Parameters in Distributed Evolutionary
+Algorithms
+A methodology to develop Service Oriented EAs</title>
 
 	<meta name="description" content="Presentation for ALIFE 14">
 	<meta name="author" content="García-Sánchez, Mora, Castillo, González, Merelo" />
 	<meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=yes" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<link href="css/idc.css" rel="stylesheet" type="text/css" />
+	<link href="css/ppsn-ws.css" rel="stylesheet" type="text/css" />
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jmpress.js"></script>
@@ -19,163 +22,20 @@
   <div id="simple">
 
     <div id="home" class="step">
-      <h1>A methodology to develop Service Oriented Evolutionary Algorithms</h1>
-      <h3>García-Sánchez, Mora, Castillo, González and <strong>Merelo</strong></h3>    
-      <h3><a href='http://geneura.wordpress.com'>GeNeura</a> + <a href='http://citic.ugr.es'>CITIC</a> for <a href='http://aida.ii.uam.es/IDC2014/'>IDC14</a>. Watch this at <a href='http://jj.github.io/pres-idc-2014'><code>goo.gl/KRhMi9</code></a></h3>
+      <h1>There’s method in my serendipity: <span class='smaller'>Using
+	  Random Parameters in Distributed Evolutionary Algorithms</span></h1>
+      <h3><strong>Merelo-Guervós</strong>, García-Valdez, Trujillo, Fernández de la Vega</h3>    
+      <h3><a href='http://geneura.wordpress.com'>GeNeura</a> + <a href='http://citic.ugr.es'>CITIC</a> for <a href='http://ppsn2014.ijs.si/?show=workshops#w4'>SBLPA-PPSN</a>. Watch this at <a href='http://mariosky.github.io/PPSN2014'><code>TODO</code></a></h3>
     </div>
 
 <!-- Slides starts here -->
 
-<div class="step" data-x="1000">
-  <h1 class='img'>Evolutionary algorithms? What's that?</h1>
-  <img src='img/sheep.jpg' alt='Sheep from US national archives'>
-  <h2>Population-based algorithms</h2>
-      <p class='image'>From <a href='https://www.flickr.com/photos/usnationalarchives/4309058199/in/photostream/'>Flocks in Owens Valley, Ansel Adams</a></p>
-</div>
 
-<div class="step" data-y="800" data-x="1000">
-  <h1 class='img'>Evolving solutions through natural selection</h1>
-<img src='img/wing.jpg' alt='Wing from the origin of Species'>
-  <h3>Select the best, combine and change them, repeat until solution found</h3>
-      <p class='image'>From <a href='https://www.flickr.com/photos/internetarchivebookimages/14780730844#'>The descent of man by Darwin</a></p></h3>
-</div>
-
-
-<div class="step" data-y="800">
-  <h1 class='img'> Do current EA models have a problem? </h1>
-</div>
-
-<div class="step" data-x="-1000" data-y='800'>
-  <h1 class='img'>They have 3 </h1>
-
-<img src='img/3fingers.jpg' alt='3 problems'>
-  <p class='image'>Flickr image by <a href='https://www.flickr.com/photos/mutsmuts/6007667842'>Mutiara Karina <code>https://flic.kr/p/a9SSm3</code></a>.</p>
-</div>
-
-<div class="step" data-x='-1000'>
-  <h1 class='img'>Not integrated </h1>
-</div>
-
-<!-- second panel -->
-
-<div class="step" data-z="-500" data-x='-1500' data-rotate-y='-90'>
-  <h1 class='img'>Not standardized </h1>
-
-<img src='img/conectores.jpg' alt='By EDans'>
- <p class='image'>Flickr image by <a href=¡https://www.flickr.com/photos/edans/253500563'>Edans <code>https://flic.kr/p/opfTn</code></a>.</p>
-</div>
-
-<div class="step" data-z="-500" data-x='-1500' data-y='800' data-rotate-y='-90'>
-  <h1 class='img'>Not dynamic </h1>
-
-<img src='img/non-dynamic.jpg' alt='By Street Railway Journal'>
- <p class='image'>Flickr image by <a href='https://www.flickr.com/photos/internetarchivebookimages/14761554305'>Book Archive <code>https://flic.kr/p/ouqPNZh</code></a>.</p>
-</div>
-
-<div class="step" data-z="-1500" data-x='-1500' data-y='800'  data-rotate-y='-90'>
-  <h1 class='img'>Service oriented architectures offer </h1>
-</div>
-
-<div class="step" data-z="-1500" data-x='-1500' data-rotate-y='-90' >
-  <h1 class='img'>Language-independence </h1>
-
-  <h2>And distribution transparency</h2>
-</div>
-
-<div  class="step" data-z="-2500" data-x='-1500' data-rotate-y='-90'>
-  <h1 class='img'>Standard service interfaces </h1>
-</div>
-
-<div class="step" data-z="-2500" data-x='-1500' data-y='800'  data-rotate-y='-90'>
-  <h1 class='img'>Distributed control of nodes </h1>
-</div>
-
-<!-- 3rd panel -->
-
-<div class="step" data-z="-3000" data-y='800' data-x='-1000'   data-rotate-y='-180'>
-  <h1 class='img'>SOMA methodology for service design </h1>
-</div>
-
-<div class="step"  data-z="-3000" data-x='-1000' data-y='0'  data-rotate-y='-180' >
-  <h1 class='img'>Identification </h1>
-
-  <h2>Problem, algorithm and infrastructure domains</h2>
-</div>
-
-<div class="step" data-z="-3000" data-x='0' data-y='0'  data-rotate-y='-180'>
-  <h1 class='img'>Specification </h1>
-
-  <h2>Fitness, population, parameters, operators as services</h2>
-</div>
-
-<div class="step" data-z="-3000" data-x='0'  data-y='800'  data-rotate-y='-180'>
-  <h1 class='img'>Implementation and deployment </h1>
-
-  <h2>Choose technology for publication, discovery and distribution: OSGi/WSDL/other</h2>
-</div>
-
-<div class="step" data-z="-3000" data-x='1000' data-y='800' data-rotate-y='-180'>
-  <h1 class='img'>This buys me what? </h1>
-
-<img src='img/tea-and-scones.jpg' alt='tea and scones by Ian' >
-  <h2>A cup of tea. And scones, too.</h2>
-
-  <p class='image'>Image by <a href='https://www.flickr.com/photos/ian-s/13448996934'>Ian at <code>https://flic.kr/p/murCeu</code></a></p>
-</div>
-
-<div class="step" data-z="-3000" data-x='1000' data-y='0' data-rotate-y='-180'>
-  <h1 class='img'>Dynamic binding of services </h1>
-
-   <h2>Operators changed or added during runtime</h2>
-</div>
-
-
-<!-- 4th panel -->
-
-<div class="step" data-z="-2500" data-x='1500'  data-rotate-y='-270'>
-  <h1 class='img'>EAs might fall in local minimum</h1>
-
-<img src='img/valley.jpg' alt='Local minimum: valley' >
-  <h2>Some selection operators have higher selection pressure</h2>
-
- <p class='image'>Image from <a href='https://www.flickr.com/photos/library_of_congress/3175018738'>Library of congress</a></p>
-</div>
-
-<div class="step" data-z="-2500" data-x='1500' data-y='800'  data-rotate-y='-270'>
-  <h1 class='img'>Binary tournament: greedy </h1>
-
-  <h2>Roulette selection: relaxed</h2>
-</div>
-
-<!-- Conclusions -->
-<div class="step" data-z="-1500" data-y='800' data-x='1500' data-rotate-y='-270' >
-
-<img class='figures' src='img/enabler.jpg' alt='Enabling new operators'  />
-  <p class='image'>Identification and specification </p>
-</div>
-
-<div class="step" data-z="-1500" data-y='0' data-x='1500'  data-rotate-y='-270' >
-
-<img class='figures' src='img/datos.png' alt='Results with dynamic binding'  />
-  <p class='image'>Dynamic binding rules!</p>
-</div>
-
-<div class="step" data-z="-500" data-x='1500' data-y='0'   data-rotate-y='-270'>
-  <h1>Services afford new ways of assembling evolutionary algorithms</h1>
-
-  <h2>Dynamic monitoring and binding of operators/services rock!</h2>
-</div>
-
-<div class="step" data-z="-500" data-x='1500' data-y='800'   data-rotate-y='-270'>
-  <h1>Open Science!</h1>
-
-  <h2>Download/comment/copy at <a href='http://osgiliath.org'><code>http://osgiliath.org</code></a></h2>
-</div>
 
 <div class="step" data-z='-1500' data-x='0' data-y='800' data-scale='3' data-rotate-z='270' data-rotate-x='90'>
   <h1>Any question?</h1>
 
-  <h3>Download/fork this presentation from <a href='http://git.io/idc14soea'><code>http://git.io/idc14soea</code></a></h3>
+  <h3>Download/fork this presentation from <a href='http://'><code>TODO</code></a></h3>
 </div>
 <!-- Slides end here -->
   </div>
