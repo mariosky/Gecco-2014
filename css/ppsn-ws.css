@@ -45,10 +45,11 @@ section {
 	transition:         opacity 1s;
 }
 
-/* fade out inactive slides 
-.step:not(.active) {
+/**
+section:not(.active) {
 	opacity: 0.3;
-}*/
+}
+*/
 
 /* hint on the first slide */
 .hint {
