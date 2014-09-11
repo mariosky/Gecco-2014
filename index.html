@@ -16,22 +16,42 @@ A methodology to develop Service Oriented EAs</title>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jmpress.js"></script>
+
+	<script type="text/javascript">
+	 $.jmpress("template", "auto", {
+	   children: function(idx) {
+	     return {
+	       y: 0
+	       ,x: 1000 + idx * 1000
+	       ,template: "auto"
+	       ,scale: 0.5
+	     }
+	   }
+	 });
+	</script>
 </head>
 <body>
 
   <div id="simple">
 
-    <div id="home" class="step">
+    <section id="home" data-template="auto">
       <h1>There’s method in my serendipity: <span class='smaller'>Using
 	  Random Parameters in Distributed Evolutionary Algorithms</span></h1>
       <h3><strong>Merelo-Guervós</strong>, García-Valdez, Trujillo, Fernández de la Vega</h3>    
       <h3><a href='http://geneura.wordpress.com'>GeNeura</a> + <a href='http://citic.ugr.es'>CITIC</a> for <a href='http://ppsn2014.ijs.si/?show=workshops#w4'>SBLPA-PPSN</a>. Watch this at <a href='http://mariosky.github.io/PPSN2014'><code>TODO</code></a></h3>
-    </div>
+      
+      <!-- Slides starts here -->
+      <section>
+	<h1>Setting evolutionary algorithm parameters is hard</h1>
+      </section>
+      
+      <section>
+	<h1>Even more so when there are hundreds of them</h1>
+      </section>
 
-    <!-- Slides starts here -->
-    <div class='step' data-template='petal1' data-radius='800' data-scale='0.8'>
-      <h1>Setting evolutionary algorithm parameters is hard</h1>
-    </div>
+    </section>
+ <!--  <div class='step' data-template='petal1' data-radius='800' data-scale='0.8'>
+
     
     <div class='step' data-template='petal2' data-radius='800' data-scale='0.8'>
       <h1>Pool evolutionary algorithms: not so canonical any more</h1>
@@ -56,20 +76,16 @@ A methodology to develop Service Oriented EAs</title>
   <h3>Download/fork this presentation from <a href='http://'><code>TODO</code></a></h3>
 </div>
 <!-- Slides end here -->
-  </div>
+
+  </div> <!-- jmpress  -->
 
   <div class="hint">
     <p>Use arrow keys to navigate</p>
-</div>
+  </div>
 
 <script type="text/javascript">
- $.jmpress("template", "petal1", { phi: 0 });
- $.jmpress("template", "petal2", { phi: 72 });
- $.jmpress("template", "petal3", { phi: 144 });
- $.jmpress("template", "petal4", { phi: 236 });
- $.jmpress("template", "petal5", { phi: 308 });
  $(function() {
-   $('#simple').jmpress();
+   $('#simple').jmpress({stepSelector: "section"});
  });
 </script>
 
