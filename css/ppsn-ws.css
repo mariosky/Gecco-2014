@@ -45,7 +45,13 @@ section {
 	transition:         opacity 1s;
 }
 
-/**
+section { opacity: 0.3; }
+section.nested-active, section.active, section.active section { opacity: 1 }
+
+/*
+section.active {
+	opacity: 1;
+}
 section:not(.active) {
 	opacity: 0.3;
 }
