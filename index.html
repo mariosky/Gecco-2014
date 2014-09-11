@@ -20,11 +20,22 @@ A methodology to develop Service Oriented EAs</title>
 	<script type="text/javascript">
 	 $.jmpress("template", "auto", {
 	   children: function(idx) {
+	     var width = 1600;
+	     var rank = 1+idx%5;
+	     var scale = 0.8/rank;
+	     if ( rank == 1 ) {
+	       rad = width;
+	     } else {
+	       rad += width*scale;
+	     }
+	     var angle = 2*Math.PI/5*Math.floor( idx/5);
+	     console.log("rank " + rank + " Rad " + rad + " scale " + scale );
 	     return {
-	       y: 0
-	       ,x: 1000 + idx * 1000
+	       y: rad*Math.sin(angle)
+	       ,x: rad*Math.cos(angle)
 	       ,template: "auto"
-	       ,scale: 0.5
+	       ,scale: scale
+	       ,rotateX: 90
 	     }
 	   }
 	 });
@@ -49,32 +60,106 @@ A methodology to develop Service Oriented EAs</title>
 	<h1>Even more so when there are hundreds of them</h1>
       </section>
 
+      <section>
+	<h1>Setting evolutionary algorithm parameters is hard</h1>
+      </section>
+      
+      <section>
+	<h1>Even more so when there are hundreds of them</h1>
+      </section>
+
+      <section>
+	<h1>Even more so when there are hundreds of them</h1>
+      </section>
+
+      <section>
+	<h1>Pool evolutionary algorithms: not so canonical any more</h1>
+      </section>
+
+       <section>
+	<h1>Pool evolutionary algorithms: not so canonical any more</h1>
+      </section>
+
+      <section>
+	<h1>Pool evolutionary algorithms: not so canonical any more</h1>
+      </section>
+
+      <section>
+	<h1>Pool evolutionary algorithms: not so canonical any more</h1>
+      </section>
+
+      <section>
+	<h1>Pool evolutionary algorithms: not so canonical any more</h1>
+      </section>
+
+      <section>
+	<h1>Evospace: have a free lunch and eat it too</h1>
+      </section>
+
+      <section>
+	<h1>Evospace: have a free lunch and eat it too</h1>
+      </section>
+
+      <section>
+	<h1>Evospace: have a free lunch and eat it too</h1>
+      </section>
+
+       <section>
+	<h1>Evospace: have a free lunch and eat it too</h1>
+      </section>
+
+       <section>
+	<h1>Evospace: have a free lunch and eat it too</h1>
+      </section>
+      
+      <section>
+        <h1>Solving p-peaks with random parametrization</h1>
+      </section>
+
+      <section>
+        <h1>Solving p-peaks with random parametrization</h1>
+      </section>
+
+       <section>
+        <h1>Solving p-peaks with random parametrization</h1>
+      </section>
+
+      <section>
+        <h1>Solving p-peaks with random parametrization</h1>
+      </section>
+
+      <section>
+        <h1>Solving p-peaks with random parametrization</h1>
+      </section>
+
+      <section>
+	<h1>Open Science!</h1>
+      </section>
+
+      <section>
+	<h1>Open Science!</h1>
+      </section>
+
+      <section>
+	<h1>Open Science!</h1>
+      </section>
+
+      <section>
+	<h1>Open Science!</h1>
+      </section>
+
+      <section>
+	<h1>Open Science!</h1>
+      </section>
+
     </section>
- <!--  <div class='step' data-template='petal1' data-radius='800' data-scale='0.8'>
 
-    
-    <div class='step' data-template='petal2' data-radius='800' data-scale='0.8'>
-      <h1>Pool evolutionary algorithms: not so canonical any more</h1>
-    </div>
+    <section data-z='2000' scale='5'>
+      <h1>Any question?</h1>
+      
+      <h3>Download/fork this presentation from <a href='http://'><code>TODO</code></a></h3>
+    </section>
 
-    <div class='step' data-template='petal3' data-radius='800' data-scale='0.8'>
-      <h1>Evospace: have a free lunch and eat it too</h1>
-    </div>
-
-    <div class='step' data-template='petal4' data-radius='800' data-scale='0.8'>
-      <h1>Solving p-peaks with random parametrization</h1>
-    </div>
-
-    <div class='step' data-template='petal5' data-radius='800' data-scale='0.8'>
-      <h1>Open Science!</h1>
-    </div>
-
-
-<div class="step" data-z='-1500' data-x='0' data-y='800' data-scale='3' data-rotate-z='270' data-rotate-x='90'>
-  <h1>Any question?</h1>
-
-  <h3>Download/fork this presentation from <a href='http://'><code>TODO</code></a></h3>
-</div>
 <!-- Slides end here -->
 
   </div> <!-- jmpress  -->
