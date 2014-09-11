@@ -1,7 +1,7 @@
 PPSN-2014
 ==========
 
-PPSN 2014 paper with a pool-based architecture for evolutionary algorithms using Python and NoSQL databases. 
+PPSN 2014 paper with a pool-based architecture for evolutionary algorithms using Python and NoSQL databases using random parametrization.
 
 
 
