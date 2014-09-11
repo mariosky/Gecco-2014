@@ -28,8 +28,26 @@ A methodology to develop Service Oriented EAs</title>
       <h3><a href='http://geneura.wordpress.com'>GeNeura</a> + <a href='http://citic.ugr.es'>CITIC</a> for <a href='http://ppsn2014.ijs.si/?show=workshops#w4'>SBLPA-PPSN</a>. Watch this at <a href='http://mariosky.github.io/PPSN2014'><code>TODO</code></a></h3>
     </div>
 
-<!-- Slides starts here -->
+    <!-- Slides starts here -->
+    <div class='step' data-template='petal1' data-radius='800' data-scale='0.8'>
+      <h1>Setting evolutionary algorithm parameters is hard</h1>
+    </div>
+    
+    <div class='step' data-template='petal2' data-radius='800' data-scale='0.8'>
+      <h1>Pool evolutionary algorithms: not so canonical any more</h1>
+    </div>
 
+    <div class='step' data-template='petal3' data-radius='800' data-scale='0.8'>
+      <h1>Evospace: have a free lunch and eat it too</h1>
+    </div>
+
+    <div class='step' data-template='petal4' data-radius='800' data-scale='0.8'>
+      <h1>Solving p-peaks with random parametrization</h1>
+    </div>
+
+    <div class='step' data-template='petal5' data-radius='800' data-scale='0.8'>
+      <h1>Open Science!</h1>
+    </div>
 
 
 <div class="step" data-z='-1500' data-x='0' data-y='800' data-scale='3' data-rotate-z='270' data-rotate-x='90'>
@@ -40,14 +58,19 @@ A methodology to develop Service Oriented EAs</title>
 <!-- Slides end here -->
   </div>
 
-<div class="hint">
+  <div class="hint">
     <p>Use arrow keys to navigate</p>
 </div>
 
 <script type="text/javascript">
-$(function() {
-	$('#simple').jmpress();
-});
+ $.jmpress("template", "petal1", { phi: 0 });
+ $.jmpress("template", "petal2", { phi: 72 });
+ $.jmpress("template", "petal3", { phi: 144 });
+ $.jmpress("template", "petal4", { phi: 236 });
+ $.jmpress("template", "petal5", { phi: 308 });
+ $(function() {
+   $('#simple').jmpress();
+ });
 </script>
 
 </body>
