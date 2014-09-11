@@ -20,22 +20,14 @@ A methodology to develop Service Oriented EAs</title>
 	<script type="text/javascript">
 	 $.jmpress("template", "auto", {
 	   children: function(idx) {
-	     var width = 1600;
-	     var rank = 1+idx%5;
-	     var scale = 0.8/rank;
-	     if ( rank == 1 ) {
-	       rad = width;
-	     } else {
-	       rad += width*scale;
-	     }
-	     var angle = 2*Math.PI/5*Math.floor( idx/5);
-	     console.log("rank " + rank + " Rad " + rad + " scale " + scale );
+	     var width = 1100;
+	     var height = 800;
+	     var col = 1+idx%5;
+	     var row = Math.floor(idx/5);
 	     return {
-	       y: rad*Math.sin(angle)
-	       ,x: rad*Math.cos(angle)
+	       y: row*height
+	       ,x: col*width
 	       ,template: "auto"
-	       ,scale: scale
-	       ,rotateX: 90
 	     }
 	   }
 	 });
@@ -154,7 +146,7 @@ A methodology to develop Service Oriented EAs</title>
 
     </section>
 
-    <section data-z='2000' scale='5'>
+    <section data-z='1000' scale='1'>
       <h1>Any question?</h1>
       
       <h3>Download/fork this presentation from <a href='http://'><code>TODO</code></a></h3>
