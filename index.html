@@ -11,21 +11,29 @@
 
 	<link href="css/ppsn-ws.css" rel="stylesheet" type="text/css" />
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<!--script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="js/jmpress.js"></script>
 
 	<script type="text/javascript">
 	 $.jmpress("template", "auto", {
 	   children: function(idx) {
+	     var cols = 5;
 	     var angle_jitter= 20;
 	     var pos_jitter = 40;
 	     var width = 1100;
 	     var height = 800;
-	     var col = 1+idx%5;
-	     var row = Math.floor(idx/5);
+	     var col = 1+idx%cols;
+	     var row = Math.floor(idx/cols);
+	     var even = row %2;
+	     console.log( "Even " + even );
+	     var pos_x = col*width-pos_jitter/2 + pos_jitter*Math.random();
+	     if ( even == 1 ) {
+	        pos_x = (cols +1)* width - pos_x; 
+             }
 	     return {
 	       y: row*height-pos_jitter/2 + pos_jitter*Math.random()
-	       ,x: col*width-pos_jitter/2 + pos_jitter*Math.random()
+	       ,x: pos_x
 	       ,z: -pos_jitter/2 + pos_jitter*Math.random()
 	       ,rotateX: -angle_jitter/2+angle_jitter*Math.random() 
 	       ,rotateY: -angle_jitter/2+angle_jitter*Math.random() 
@@ -140,9 +148,14 @@
       </section>
       
       <section>
-        <h1>Random Parameter Setting Strategy (RPSS) does P-Peaks</h1>
+        <h1>Random Parameter Setting Strategy (RPSS) does P-Peaks (and others too)</h1>
 	<h2>P-Peaks is the minimum distance to P binary strings</h2>
 	<h3>Hard problem for EAs</h3>
+      </section>
+
+       <section>
+        <h1>There's method in my serendipity</h1>
+	<h2>Changing Crossover and Mutation [0,1], Sample Size [12,24], Generations per run [5,30]</h2>
       </section>
 
       <section>
@@ -152,14 +165,15 @@
       </section>
 
        <section>
-        <h1>Solving p-peaks with random parametrization</h1>
+        <h1>Solving problems with random parametrization</h1>
 
-	<h2><em>P=200</em> peaks, 100-bit strings</h2>
+	<h2>P-Peaks with <em>P=200</em> peaks, 100-bit strings</h2>
+
+	<h3>Schwefel, Rastrigin and Griewangk functions with 40 dimensions.</h3>
+
       </section>
 
-      <section>
-        <h1>Solving p-peaks with random parametrization</h1>
-      </section>
+     
 
       <section>
         <h1>Solving p-peaks with random parametrization</h1>
