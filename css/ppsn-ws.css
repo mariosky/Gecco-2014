@@ -118,6 +118,14 @@ h1.right { position: absolute;
 	   top:30px;
 	   left:400px}
 
+h1.aside { position: absolute;
+	   top:30px;
+	   left:500px}
+
+h3.aside { position: absolute;
+	   top:520px;
+	   left:320px}
+
 h2 {font-size:3em;
     font-family: "Lato", sans-serif;
     color: #47423F;
