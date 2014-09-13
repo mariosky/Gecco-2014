@@ -3,7 +3,12 @@ PPSN-2014
 
 PPSN 2014 paper with a pool-based architecture for evolutionary algorithms using Python and NoSQL databases using random parametrization.
 
+# About the presentation
 
+go to the
+[`gh-pages` branch](https://github.com/mariosky/PPSN2014/tree/gh-pages)
+to check out the presentation usinng JMpress and some nifty templating
+magic to create a wall of slides with slightly random layout. 
 
 Archivos de resultados en data/
 ==================================================================================================================
